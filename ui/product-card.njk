@@ -1,0 +1,31 @@
+<div x-data='xDataproduct({{ data | dump | safe }})' class="bg-white rounded-md 
+ overflow-hidden transition-transform duration-300 group">
+    <a href="/product/{{ data.product.slug }}" class="block relative">
+        <img src="{{ data.product.images[0].fileUrl | default('https://placehold.co/600x400/orange/white') }}"
+            alt="Product 1"
+            class="w-full {% if data.product.images[1] %} group-hover:opacity-0 {% else %}  group-hover:opacity-100 {% endif %} h-auto aspect-square object-cover transition-opacity duration-300 ">
+        {% if data.product.images[1] %}
+
+        <img src="{{ data.product.images[1].fileUrl | default('https://placehold.co/600x400/orange/white') }}"
+            alt="Product 1 Hover"
+            class="absolute inset-0 w-full h-auto aspect-square object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        {% endif %}
+    </a>
+    <a href="/product/{{ data.product.slug }}" class="flex pt-4 flex-col items-center gap-0.5 text-center">
+        <p class="font-bold text-gray-900 text-sm text-center"><a href="#">{{ data.product.title }}
+        </a>
+    </p>
+    
+    <div class="flex items-center justify-center gap-2">
+
+        {% if data.product.pricing.price >0 %}
+        <p class="text-gray-700 text-sm font-semibold text-center">{{data.product.pricing.price | money }}</p>
+    {%endif%}
+    {% if data.product.pricing.compareAtPrice > data.product.pricing.price %}
+    <p class=" text-[#868584]  text-decoration-line-through  text-sm">
+        {{data.product.pricing.compareAtPrice | money }}
+        </p>
+        {%endif%}
+    </div>
+    </a>
+</div>

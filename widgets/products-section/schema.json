@@ -1,0 +1,12 @@
+{
+  "name": "Products section",
+  "description": "قسم المنتجات",
+  "data": {
+    "products": {
+      "type": "products",
+      "label": "العنوان",
+      "default": "latest"
+    }
+  }
+}
+

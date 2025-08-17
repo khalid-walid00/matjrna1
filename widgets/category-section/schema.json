@@ -1,0 +1,13 @@
+{
+  "name": "Service Features",
+  "description": "عرض 3 مميزات رئيسية للخدمة أو المتجر",
+  "data": [
+    {
+      "key": "title",
+      "name": "title",
+      "type": "text",
+      "label": "العنوان",
+      "default": "المنتجات المميزة"
+    }
+  ]
+}

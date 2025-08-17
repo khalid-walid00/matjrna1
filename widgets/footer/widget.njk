@@ -1,0 +1,100 @@
+<footer class="text-white pt-12 pb-6" style="background-color: #002c31;">
+    <div class="containr flex flex-col gap-4 md:px-12 px-[10px]">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+  
+        <!-- حول الشركة -->
+        <div class="col-span-1 lg:col-span-1">
+          <h3 class="font-bold mb-4">{{ globals.app.name }}</h3>
+          <p class="text-sm text-gray-300">{{ footer.data.company_description }}</p>
+  
+          {% if footer.data.contact_location %}
+          <p class="text-sm flex items-center gap-1 text-gray-300 mt-2"><i class="fi fi-ts-marker"></i> {{ footer.data.contact_location }}</p>
+          {% endif %}
+          {% if footer.data.contact_email %}
+          <p class="text-sm flex items-center gap-1 text-gray-300 mt-2"><i class="fi fi-ts-envelope"></i> {{ footer.data.contact_email }}</p>
+          {% endif %}
+          {% if footer.data.contact_phone %}
+          <p class="text-sm flex items-center gap-1 text-gray-300 mt-2"><i class="fi fi-ts-phone-call"></i> {{ footer.data.contact_phone }}</p>
+          {% endif %}
+        </div>
+  
+        <!-- روابط القائمة السفلية -->
+        <div>
+          <h3 class="font-bold mb-4">روابط سريعة</h3>
+          <ul class="flex flex-col gap-2 text-sm">
+            {% for item in footer.data.footer_menu %}
+            <li>
+              <a href="{{ item.url }}" class="text-gray-300 hover:text-white">
+                {{ item.title | default('رابط بدون عنوان') }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+  
+        <!-- روابط ثابتة (سياسات) -->
+        <div>
+          <h3 class="font-bold mb-4">سياسة</h3>
+          <ul class="flex flex-col gap-2 text-sm">
+            <li><a href="#" class="text-gray-300 hover:text-white">سياسة الخصوصية</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white">سياسة الاسترجاع</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white">سياسة الشحن</a></li>
+          </ul>
+        </div>
+  
+        <!-- دعم -->
+        <div>
+          <h3 class="font-bold mb-4">يدعم</h3>
+          <ul class="flex flex-col gap-2 text-sm">
+            <li><a href="#" class="text-gray-300 hover:text-white">الأسئلة الشائعة</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white">حسابي</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white">تتبع طلبي</a></li>
+          </ul>
+        </div>
+  
+        <!-- الاشتراك -->
+        <div class="col-span-1 md:col-span-2 lg:col-span-1">
+  
+          <a class=" cursor-pointer login font-thin mb-2">قم بالتسجيل للحصول على عروض شخصية</a>
+         
+        </div>
+      </div>
+  
+      <!-- أسفل الفوتر -->
+       <div class="flex flex-col gap-0.5">
+      <div class="border-t border-gray-700 pt-3 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
+        <p>© {{ "now"|date("Y") }}, {{ globals.app.name }}</p>
+  
+        <div class="flex space-x-4 mt-4 md:mt-0">
+          {% if footer.data.facebook_link %}
+          <a href="{{ footer.data.facebook_link }}" aria-label="Facebook" class="text-gray-400 hover:text-white">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          {% endif %}
+          {% if footer.data.x_link %}
+          <a href="{{ footer.data.x_link }}" aria-label="Twitter" class="text-gray-400 hover:text-white">
+            <i class="fab fa-twitter"></i>
+          </a>
+          {% endif %}
+          {% if footer.data.instagram_link %}
+          <a href="{{ footer.data.instagram_link }}" aria-label="Instagram" class="text-gray-400 hover:text-white">
+            <i class="fab fa-instagram"></i>
+          </a>
+          {% endif %}
+          {% if footer.data.p_link %}
+          <a href="{{ footer.data.p_link }}" aria-label="P" class="text-gray-400 hover:text-white">
+            <i class="fab fa-pinterest"></i>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+  
+      <!-- حقوق و Powered -->
+      <a href="https://qumra.cloud/" class="footer-bottom flex flex-row justify-between items-center">
+        <span>{{ footer.data.powered_text }}</span>
+        <i class="fi text-lg fi-ts-cart-minus"></i>
+      </a>
+    </div>
+</div>
+  </footer>
+  

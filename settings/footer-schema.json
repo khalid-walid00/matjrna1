@@ -1,0 +1,58 @@
+{
+  "company_description": {
+    "type": "textarea",
+    "label": "وصف الشركة",
+    "default": "نحن شركة متخصصة في [مجال الشركة]، نقدم لك أفضل المنتجات والخدمات بجودة عالية."
+  },
+  "footer_menu": {
+    "type": "menu",
+    "label": "القائمة السفلية",
+    "default": "header"
+  },
+  "contact_phone": {
+    "type": "string",
+    "label": "رقم الهاتف",
+    "default": "01093106133"
+  },
+  "contact_location": {
+    "type": "string",
+    "label": "العنوان",
+    "default": "01093106133"
+  },
+  "contact_email": {
+    "type": "string",
+    "label": "البريد الإلكتروني",
+    "default": "0109310c6133"
+  },
+  "facebook_link": {
+    "type": "string",
+    "label": "رابط فيسبوك",
+    "default": "01093106133"
+  },
+  "x_link": {
+    "type": "string",
+    "label": "رابط X (تويتر سابقًا)",
+    "default": "01093106133"
+  },
+  "instagram_link": {
+    "type": "string",
+    "label": "رابط انستجرام",
+    "default": "01093106133"
+  },
+  "p_link": {
+    "type": "string",
+    "label": "رابط P",
+    "default": "01093106133"
+  },
+  "powered_text": {
+    "type": "string",
+    "label": "نص المشغل",
+    "default": "مشغل بواسطة قمره"
+  },
+  "powered_logo": {
+    "type": "image",
+    "label": "لوجو المشغل",
+    "default": "/assets/logo/qumra.svg"
+  }
+}
+

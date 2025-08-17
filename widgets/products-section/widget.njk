@@ -1,0 +1,20 @@
+<section  class="py-8" >
+  <div class="container mx-auto">
+    {% if  widget.data.products | length > 0 %}
+    <div class=" flex flex-col gap-4 ">
+      <div class="grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
+        {% for product in widget.data.products %}
+        {%ui "product-card.njk" ,product=product ,showModal=true%}
+        {% endfor %}
+      </div>
+      <a href="/collections" class=" flex  self-end w-max gap-2 items-center ">
+        <span class=" text-primary  text-end"> عرض المزيد </span>
+        <i class="fi flex items-center fi-rr-angle-double-small-left text-primary "></i>
+      </a>
+    </div>
+    {% else %}
+    {%ui "empty.njk" %}
+     {% endif %}
+  </div>
+</section>
+

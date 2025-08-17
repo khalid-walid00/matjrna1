@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{{ context.page.title | default("Store") }}</title>
+    {% seo %}
+    {% qumra_head %}
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts - Zain -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="{{ 'style.css' | assets }}"/>
+
+    <!-- Tailwind Config -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#000",
+              secondary: "#1E1E1E",
+              neutral: {
+                100: "#EFEFEF",
+                200: "#E0E0E0",
+                300: "#868584",
+                400: "#0D0D0D"
+              }
+            },
+            fontFamily: {
+              zain: ["Barlow", "sans-serif"]
+            },
+            screens: {
+              xs: "475px",
+              sm: "640px",
+              md: "768px",
+              lg: "1024px",
+              xl: "1400px",
+              "2xl": "1536px"
+            }
+          }
+        }
+      };
+    </script>
+    <!-- Iconify for Flat Icons -->
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <!-- Flaticon UIcons Regular Rounded -->
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-thin-straight/css/uicons-thin-straight.css">
+
+
+
+  </head>
+  <body >
+    <div x-data="GlobalState" x-init="init()">
+      {%ui "loading-screen.njk" %}
+      {% header %}
+
+      <main>
+        {% content %}
+      </main>
+
+      {% footer %}
+    </div>
+    {% qumra_scripts %}
+    <script>
+      console.log("Global Data", __qumra__);
+    </script>
+    <script src="{{ 'main.js' | assets }}"></script>
+    <script src="{{ 'cart.js' | assets }}"></script>
+    <script src="{{ 'product.js' | assets }}"></script>
+    <script src="{{ 'wishlist.js' | assets }}"></script>
+    <script src="{{ 'sidebar.js' | assets }}"></script>
+    <script src="{{ 'search.js' | assets }}"></script>
+  </body>
+</html>

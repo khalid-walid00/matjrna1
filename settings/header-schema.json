@@ -1,0 +1,33 @@
+{
+  "max": {
+    "type": "number",
+    "label": "Maximum Number of Metadata Entries",
+    "default": 100
+  },
+  "navbar_text": {
+    "type": "string",
+    "label": "Metadata Schema Name",
+    "default": "احصل على توصيل مجاني للمنزل (عند الطلب بأكثر من 1550 جنية مصرى)"
+  },
+  "email": {
+    "type": "string",
+    "label": "Email"
+  },
+  "header_menu": {
+    "type": "menu",
+    "label": "Menu Text",
+    "default": "header"
+  },
+  "announcement": {
+    "type": "array",
+    "label": "Announcement",
+    "default": [
+      {
+        "description": "استمتع بالشحن المجاني للطلبات التي تزيد قيمتها عن 2,999 جنيه مصري"
+      },
+      {
+        "description": "اشتري الآن وادفع بالتقسيط على 12 شهر"
+      }
+    ]
+  }
+}

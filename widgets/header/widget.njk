@@ -1,0 +1,89 @@
+<!-- Announcement Bar -->
+<div class="bg-black text-white overflow-hidden announcement-bar">
+    <div class="marquee-container flex flex-row items-center gap-0 py-2">
+        {% for item in header.data.announcement %}
+        <div class="animate-marquee">
+            {% set printed = 0 %}
+            {% for item in announcement %}
+            {% if item.description and item.description | trim != '' %}
+            {% if printed > 0 %}<span class="px-2">•</span>{% endif %}
+            <span class="text-sm lg:text-base font-bold px-4">{{ item.description }}</span>
+            {% set printed = printed + 1 %}
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+<!-- Header & Interactive Modals Controller -->
+<header
+    class="sticky top-0 left-0 w-full z-40 bg-white bg-opacity-90 backdrop-blur-sm shadow-sm transition-all duration-300">
+    <div class="container  ">
+        <div class="grid grid-cols-3 items-center py-4">
+            <div class="flex items-center space-x-4 justify-start">
+                <button @click="toggleModal('sidebar')" aria-label="القائمة"><svg class="h-6 w-6" viewBox="0 0 22 22"
+                        stroke="currentColor" stroke-width="1.9">
+                        <path d="M1 5h20M1 11h20M1 17h20" stroke-linecap="round"></path>
+                    </svg></button>
+            </div>
+            <div class="flex justify-center"><a href="#"><img src="{{globals.app.logo.fileUrl}}" alt="Matjrna Logo"
+                        class="h-10 md:h-14 w-auto"></a></div>
+            <div class="flex items-center gap-x-4 justify-end">
+                {# <div x-data="{ langOpen: false }" class="relative hidden md:block">
+                    <button @click="langOpen = !langOpen"
+                        class="flex items-center space-x-1 text-sm font-bold"><span>العربية</span><svg class="h-3 w-3"
+                            viewBox="0 0 10 7" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="m1 1 4 4 4-4"></path>
+                        </svg></button>
+                    <div x-show="langOpen" @click.away="langOpen = false" x-cloak
+                        class="absolute top-full mt-2 w-32 bg-white rounded-md shadow-lg border"><a href="#"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">العربية</a><a href="#"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">English</a></div>
+                </div> #}
+                <button @click="toggleModal('search')" class=" cursor-pointer " aria-label="بحث"><svg class="h-6 w-6"
+                        viewBox="0 0 22 22" stroke="currentColor" stroke-width="1.9" fill="none">
+                        <circle cx="11" cy="10" r="7"></circle>
+                        <path d="m16 15 3 3" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg></button>
+                {% if globals.customer._id %}
+                <button class="hidden logout lg:block" aria-label="الحساب">
+                    <img src="{{ globals.customer.account.avatarUrl }}" class="object-contain w-5 h-5 rounded-full"
+                        alt="">
+                </button>
+                {% else %}
+                <button class="hidden login lg:block" aria-label="الحساب">
+                    <svg class="h-6 w-6" viewBox="0 0 22 22" stroke="currentColor" stroke-width="1.9" fill="none">
+                        <circle cx="11" cy="7" r="4"></circle>
+                        <path d="M3.5 19c1.421-2.974 4.247-5 7.5-5s6.079 2.026 7.5 5" stroke-linecap="round"></path>
+                    </svg>
+                </button>
+                {% endif %}
+                <button @click="toggleModal('cart')" class="relative" aria-label="عربة التسوق"
+                    @click.prevent="cartOpen = true"><svg class="h-6 w-6" viewBox="0 0 22 22" stroke="currentColor"
+                        stroke-width="1.9">
+                        <path
+                            d="M9.182 18.454a.91.91 0 1 1-1.818 0 .91.91 0 0 1 1.818 0Zm7.272 0a.91.91 0 1 1-1.818 0 .91.91 0 0 1 1.819 0Z"
+                            fill="currentColor"></path>
+                        <path
+                            d="M5.336 6.636H21l-3.636 8.182H6.909L4.636 3H1m8.182 15.454a.91.91 0 1 1-1.818 0 .91.91 0 0 1 1.818 0Zm7.272 0a.91.91 0 1 1-1.818 0 .91.91 0 0 1 1.819 0Z"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                    <span x-text="globals?.cart?.items?.length || 0"
+                        class="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full h-4 w-4 flex items-center justify-center"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+<!-- ############### END: PROFESSIONAL CART SIDE-PANEL ############### -->
+{%ui "sidebar.njk", menu=header.data.header_menu %}
+{%ui "search.njk" %}
+{%ui "cart.njk" %}
