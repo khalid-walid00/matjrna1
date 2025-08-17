@@ -1,30 +1,39 @@
-<footer class="text-white pt-12 pb-6" style="background-color: #002c31;">
-    <div class="containr flex flex-col gap-4 md:px-12 px-[10px]">
+<footer class="text-white pt-16 pb-8" style="background-color: #002c31;">
+    <div class="container mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
   
         <!-- حول الشركة -->
         <div class="col-span-1 lg:col-span-1">
-          <h3 class="font-bold mb-4">{{ globals.app.name }}</h3>
-          <p class="text-sm text-gray-300">{{ footer.data.company_description }}</p>
+          <h3 class="font-bold mb-6 text-xl font-['Cairo',sans-serif] text-white">{{ globals.app.name }}</h3>
+          <p class="text-sm text-gray-300 leading-relaxed font-['Cairo',sans-serif]">{{ footer.data.company_description }}</p>
   
           {% if footer.data.contact_location %}
-          <p class="text-sm flex items-center gap-1 text-gray-300 mt-2"><i class="fi fi-ts-marker"></i> {{ footer.data.contact_location }}</p>
+          <p class="text-sm flex items-center gap-3 text-gray-300 mt-4 font-['Cairo',sans-serif]">
+            <i class="fi fi-ts-marker text-gray-400"></i> 
+            {{ footer.data.contact_location }}
+          </p>
           {% endif %}
           {% if footer.data.contact_email %}
-          <p class="text-sm flex items-center gap-1 text-gray-300 mt-2"><i class="fi fi-ts-envelope"></i> {{ footer.data.contact_email }}</p>
+          <p class="text-sm flex items-center gap-3 text-gray-300 mt-3 font-['Cairo',sans-serif]">
+            <i class="fi fi-ts-envelope text-gray-400"></i> 
+            {{ footer.data.contact_email }}
+          </p>
           {% endif %}
           {% if footer.data.contact_phone %}
-          <p class="text-sm flex items-center gap-1 text-gray-300 mt-2"><i class="fi fi-ts-phone-call"></i> {{ footer.data.contact_phone }}</p>
+          <p class="text-sm flex items-center gap-3 text-gray-300 mt-3 font-['Cairo',sans-serif]">
+            <i class="fi fi-ts-phone-call text-gray-400"></i> 
+            {{ footer.data.contact_phone }}
+          </p>
           {% endif %}
         </div>
   
         <!-- روابط القائمة السفلية -->
         <div>
-          <h3 class="font-bold mb-4">روابط سريعة</h3>
-          <ul class="flex flex-col gap-2 text-sm">
+          <h3 class="font-bold mb-6 text-lg font-['Cairo',sans-serif] text-white">روابط سريعة</h3>
+          <ul class="flex flex-col gap-3 text-sm">
             {% for item in footer.data.footer_menu %}
             <li>
-              <a href="{{ item.url }}" class="text-gray-300 hover:text-white">
+              <a href="{{ item.url }}" class="text-gray-300 hover:text-white transition-colors duration-200 font-['Cairo',sans-serif]">
                 {{ item.title | default('رابط بدون عنوان') }}
               </a>
             </li>
@@ -34,67 +43,68 @@
   
         <!-- روابط ثابتة (سياسات) -->
         <div>
-          <h3 class="font-bold mb-4">سياسة</h3>
-          <ul class="flex flex-col gap-2 text-sm">
-            <li><a href="#" class="text-gray-300 hover:text-white">سياسة الخصوصية</a></li>
-            <li><a href="#" class="text-gray-300 hover:text-white">سياسة الاسترجاع</a></li>
-            <li><a href="#" class="text-gray-300 hover:text-white">سياسة الشحن</a></li>
+          <h3 class="font-bold mb-6 text-lg font-['Cairo',sans-serif] text-white">سياسة</h3>
+          <ul class="flex flex-col gap-3 text-sm">
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200 font-['Cairo',sans-serif]">سياسة الخصوصية</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200 font-['Cairo',sans-serif]">سياسة الاسترجاع</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200 font-['Cairo',sans-serif]">سياسة الشحن</a></li>
           </ul>
         </div>
   
         <!-- دعم -->
         <div>
-          <h3 class="font-bold mb-4">يدعم</h3>
-          <ul class="flex flex-col gap-2 text-sm">
-            <li><a href="#" class="text-gray-300 hover:text-white">الأسئلة الشائعة</a></li>
-            <li><a href="#" class="text-gray-300 hover:text-white">حسابي</a></li>
-            <li><a href="#" class="text-gray-300 hover:text-white">تتبع طلبي</a></li>
+          <h3 class="font-bold mb-6 text-lg font-['Cairo',sans-serif] text-white">يدعم</h3>
+          <ul class="flex flex-col gap-3 text-sm">
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200 font-['Cairo',sans-serif]">الأسئلة الشائعة</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200 font-['Cairo',sans-serif]">حسابي</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition-colors duration-200 font-['Cairo',sans-serif]">تتبع طلبي</a></li>
           </ul>
         </div>
   
         <!-- الاشتراك -->
         <div class="col-span-1 md:col-span-2 lg:col-span-1">
-  
-          <a class=" cursor-pointer login font-thin mb-2">قم بالتسجيل للحصول على عروض شخصية</a>
-         
+          <h3 class="font-bold mb-6 text-lg font-['Cairo',sans-serif] text-white">النشرة البريدية</h3>
+          <a class="cursor-pointer login font-medium mb-4 text-gray-300 hover:text-white transition-colors duration-200 font-['Cairo',sans-serif]">
+            قم بالتسجيل للحصول على عروض شخصية
+          </a>
         </div>
       </div>
   
       <!-- أسفل الفوتر -->
-       <div class="flex flex-col gap-0.5">
-      <div class="border-t border-gray-700 pt-3 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
-        <p>© {{ "now"|date("Y") }}, {{ globals.app.name }}</p>
+      <div class="flex flex-col gap-4">
+        <div class="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
+          <p class="font-['Cairo',sans-serif]">© {{ "now"|date("Y") }}, {{ globals.app.name }}</p>
   
-        <div class="flex space-x-4 mt-4 md:mt-0">
-          {% if footer.data.facebook_link %}
-          <a href="{{ footer.data.facebook_link }}" aria-label="Facebook" class="text-gray-400 hover:text-white">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          {% endif %}
-          {% if footer.data.x_link %}
-          <a href="{{ footer.data.x_link }}" aria-label="Twitter" class="text-gray-400 hover:text-white">
-            <i class="fab fa-twitter"></i>
-          </a>
-          {% endif %}
-          {% if footer.data.instagram_link %}
-          <a href="{{ footer.data.instagram_link }}" aria-label="Instagram" class="text-gray-400 hover:text-white">
-            <i class="fab fa-instagram"></i>
-          </a>
-          {% endif %}
-          {% if footer.data.p_link %}
-          <a href="{{ footer.data.p_link }}" aria-label="P" class="text-gray-400 hover:text-white">
-            <i class="fab fa-pinterest"></i>
-          </a>
-          {% endif %}
+          <div class="flex space-x-6 mt-4 md:mt-0">
+            {% if footer.data.facebook_link %}
+            <a href="{{ footer.data.facebook_link }}" aria-label="Facebook" class="text-gray-400 hover:text-white transition-colors duration-200 p-2 hover:bg-gray-700 rounded-lg">
+              <i class="fab fa-facebook-f text-lg"></i>
+            </a>
+            {% endif %}
+            {% if footer.data.x_link %}
+            <a href="{{ footer.data.x_link }}" aria-label="Twitter" class="text-gray-400 hover:text-white transition-colors duration-200 p-2 hover:bg-gray-700 rounded-lg">
+              <i class="fab fa-twitter text-lg"></i>
+            </a>
+            {% endif %}
+            {% if footer.data.instagram_link %}
+            <a href="{{ footer.data.instagram_link }}" aria-label="Instagram" class="text-gray-400 hover:text-white transition-colors duration-200 p-2 hover:bg-gray-700 rounded-lg">
+              <i class="fab fa-instagram text-lg"></i>
+            </a>
+            {% endif %}
+            {% if footer.data.p_link %}
+            <a href="{{ footer.data.p_link }}" aria-label="Pinterest" class="text-gray-400 hover:text-white transition-colors duration-200 p-2 hover:bg-gray-700 rounded-lg">
+              <i class="fab fa-pinterest text-lg"></i>
+            </a>
+            {% endif %}
+          </div>
         </div>
-      </div>
   
-      <!-- حقوق و Powered -->
-      <a href="https://qumra.cloud/" class="footer-bottom flex flex-row justify-between items-center">
-        <span>{{ footer.data.powered_text }}</span>
-        <i class="fi text-lg fi-ts-cart-minus"></i>
-      </a>
+        <!-- حقوق و Powered -->
+        <a href="https://qumra.cloud/" class="footer-bottom flex flex-row justify-between items-center text-gray-500 hover:text-gray-300 transition-colors duration-200">
+          <span class="font-['Cairo',sans-serif]">{{ footer.data.powered_text }}</span>
+          <i class="fi text-lg fi-ts-cart-minus text-gray-400"></i>
+        </a>
+      </div>
     </div>
-</div>
   </footer>
   

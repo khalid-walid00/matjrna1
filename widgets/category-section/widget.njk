@@ -1,67 +1,89 @@
     <!-- Categories -->
-    <section class="category-section">
-      <div class="container">
-        <div class="category-grid">
-          <div class="category-item">
-            <div class="category-icon">
-              <img
-                src={{'8867b406180189286ba748fab279f5e542e95eb3.png' | assets}}
-                alt="مكبر صوت"
-                style="width: 80px; height: 80px"
-              />
+    <section class="py-20 bg-gradient-to-b from-gray-50 to-white">
+      <div class="container mx-auto">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold text-gray-900 mb-4 font-['Cairo',sans-serif]">تسوق حسب الفئة</h2>
+          <p class="text-xl text-gray-600 font-['Cairo',sans-serif]">اختر من بين فئاتنا المتنوعة</p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+          <div class="group cursor-pointer">
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl border border-gray-200 hover:border-blue-300 p-6 text-center transition-all duration-500 transform hover:-translate-y-2">
+              <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <img
+                  src={{'8867b406180189286ba748fab279f5e542e95eb3.png' | assets}}
+                  alt="مكبر صوت"
+                  class="w-16 h-16 object-contain"
+                />
+              </div>
+                             <span class="text-gray-800 font-bold text-lg font-['Cairo',sans-serif] group-hover:text-gray-900 transition-colors duration-300">مكبرات صوت</span>
             </div>
-            <span class="category-label">مكبرات صوت</span>
           </div>
         
-          <div class="category-item">
-            <div class="category-icon">
-              <img
-                src={{'039f1b8434e0062433e1ef462f604efc06b2edeb.png' | assets}}
-                alt="كاميرا مراقبة"
-                style="width: 80px; height: 80px"
-              />
+          <div class="group cursor-pointer">
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl border border-gray-200 hover:border-green-300 p-6 text-center transition-all duration-500 transform hover:-translate-y-2">
+              <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <img
+                  src={{'039f1b8434e0062433e1ef462f604efc06b2edeb.png' | assets}}
+                  alt="كاميرا مراقبة"
+                  class="w-16 h-16 object-contain"
+                />
+              </div>
+              <span class="text-gray-800 font-bold text-lg font-['Cairo',sans-serif] group-hover:text-green-600 transition-colors duration-300">كاميرا مراقبة</span>
             </div>
-            <span class="category-label">كاميرا مراقبة</span>
           </div>
-          <div class="category-item">
-            <div class="category-icon">
-              <img
-                src={{'1bb0af78a068c8d9455fc6e5e322722e0691f053.png' | assets}}
-                alt="سماعات لاسلكية"
-                style="width: 80px; height: 80px"
-              />
+          
+          <div class="group cursor-pointer">
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl border border-gray-200 hover:border-purple-300 p-6 text-center transition-all duration-500 transform hover:-translate-y-2">
+              <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <img
+                  src={{'1bb0af78a068c8d9455fc6e5e322722e0691f053.png' | assets}}
+                  alt="سماعات لاسلكية"
+                  class="w-16 h-16 object-contain"
+                />
+              </div>
+              <span class="text-gray-800 font-bold text-lg font-['Cairo',sans-serif] group-hover:text-purple-600 transition-colors duration-300">سماعات لاسلكية</span>
             </div>
-            <span class="category-label">سماعات لاسلكية</span>
           </div>
-          <div class="category-item">
-            <div class="category-icon">
-              <img
-                src={{'mobile.png' | assets}}
-                alt="موبايل"
-                style="width: 80px; height: 80px"
-              />
+          
+          <div class="group cursor-pointer">
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl border border-gray-200 hover:border-orange-300 p-6 text-center transition-all duration-500 transform hover:-translate-y-2">
+              <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <img
+                  src={{'mobile.png' | assets}}
+                  alt="موبايل"
+                  class="w-16 h-16 object-contain"
+                />
+              </div>
+              <span class="text-gray-800 font-bold text-lg font-['Cairo',sans-serif] group-hover:text-orange-600 transition-colors duration-300">موبايل</span>
             </div>
-            <span class="category-label">موبايل</span>
           </div>
-          <div class="category-item">
-            <div class="category-icon">
-              <img
-                src={{'tv.png' | assets}}
-                alt="شاشات"
-                style="width: 80px; height: 80px"
-              />
+          
+          <div class="group cursor-pointer">
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl border border-gray-200 hover:border-red-300 p-6 text-center transition-all duration-500 transform hover:-translate-y-2">
+              <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <img
+                  src={{'tv.png' | assets}}
+                  alt="شاشات"
+                  class="w-16 h-16 object-contain"
+                />
+              </div>
+              <span class="text-gray-800 font-bold text-lg font-['Cairo',sans-serif] group-hover:text-red-600 transition-colors duration-300">شاشات</span>
             </div>
-            <span class="category-label">شاشات</span>
           </div>
-          <div class="category-item">
-            <div class="category-icon">
-              <img
-                src={{'watch.png' | assets}}
-                alt="ساعات"
-                style="width: 80px; height: 80px"
-              />
+          
+          <div class="group cursor-pointer">
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl border border-gray-200 hover:border-indigo-300 p-6 text-center transition-all duration-500 transform hover:-translate-y-2">
+              <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <img
+                  src={{'watch.png' | assets}}
+                  alt="ساعات"
+                  class="w-16 h-16 object-contain"
+                />
+              </div>
+              <span class="text-gray-800 font-bold text-lg font-['Cairo',sans-serif] group-hover:text-indigo-600 transition-colors duration-300">ساعات</span>
             </div>
-            <span class="category-label">ساعات</span>
           </div>
         </div>
       </div>
