@@ -1,5 +1,5 @@
 <!-- Announcement Bar -->
-<div class="bg-gradient-to-r from-gray-900 to-black text-white overflow-hidden announcement-bar">
+{# <div class="bg-gradient-to-r from-gray-900 to-black text-white overflow-hidden announcement-bar">
     <div class="marquee-container flex flex-row items-center gap-0 py-3">
         {% for item in header.data.announcement %}
         <div class="animate-marquee">
@@ -14,8 +14,28 @@
         </div>
         {% endfor %}
     </div>
-</div>
-
+</div> #}
+<div class="bg-black text-white overflow-hidden announcement-bar" x-data="{ scrolled: false }" @scroll.window="scrolled = window.pageYOffset > 40" :class="scrolled ? 'hidden' : ''">
+    <div class="marquee-container">
+      <div class="animate-marquee">
+        <span class="mx-4 text-sm font-bold">✨ عروض مستمرة وهدايا مفاجئة كل يوم</span><span class="mx-1">•</span>
+        <span class="mx-4 text-sm font-bold">🚀 اطلب دلوقتي وخليك أول المستفيدين</span><span class="mx-1">•</span>
+        <span class="mx-4 text-sm font-bold">💳 وفر وقتك… الشراء دلوقتي والدفع لاحقًا</span><span class="mx-1">•</span>
+        <span class="mx-4 text-sm font-bold">🎉 منتجات جديدة بتنزل بشكل حصري عندنا</span><span class="mx-1">•</span>
+        <span class="mx-4 text-sm font-bold">🛒 تسوق بسهولة وخلّيها تجربة مختلفة</span><span class="mx-1">•</span>
+        <span class="mx-4 text-sm font-bold">⭐ الجودة اللي بتدور عليها في مكان واحد</span>
+      </div>
+      <div class="animate-marquee" aria-hidden="true">
+        <span class="mx-4 text-sm font-bold">✨ عروض مستمرة وهدايا مفاجئة كل يوم</span><span class="mx-1">•</span>
+        <span class="mx-4 text-sm font-bold">🚀 اطلب دلوقتي وخليك أول المستفيدين</span><span class="mx-1">•</span>
+        <span class="mx-4 text-sm font-bold">💳 وفر وقتك… الشراء دلوقتي والدفع لاحقًا</span><span class="mx-1">•</span>
+        <span class="mx-4 text-sm font-bold">🎉 منتجات جديدة بتنزل بشكل حصري عندنا</span><span class="mx-1">•</span>
+        <span class="mx-4 text-sm font-bold">🛒 تسوق بسهولة وخلّيها تجربة مختلفة</span><span class="mx-1">•</span>
+        <span class="mx-4 text-sm font-bold">⭐ الجودة اللي بتدور عليها في مكان واحد</span>
+      </div>
+    </div>
+  </div>
+  
 
 <!-- Header & Interactive Modals Controller -->
 <header

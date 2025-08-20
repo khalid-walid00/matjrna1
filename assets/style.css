@@ -70,25 +70,21 @@ header { transition: none; }
 .container {
     width: 100%;
     margin: 0 auto;
-    padding: 0 1.5rem; /* 24px - mobile */
     box-sizing: border-box;
   }
 
 /* Responsive container padding to match header/footer */
 @media (min-width: 640px) {
-    .container { padding: 0 2rem; } /* 32px - sm */
+    /* .container { padding: 0 2rem; } 32px - sm */
 }
 
 @media (min-width: 768px) {
-    .container { padding: 0 3rem; } /* 48px - md */
+    /* .container { padding: 0 1rem }  */
 }
 
-@media (min-width: 1024px) {
-    .container { padding: 0 4rem; } /* 64px - lg */
-}
 
 @media (min-width: 1280px) {
-    .container { padding: 0 5rem; } /* 80px - xl */
+    /* .container { padding: 0 5rem; } 80px - xl */
 }
 /* Custom responsive breakpoints for desktop */
 @media (min-width: 1200px) {
@@ -114,6 +110,7 @@ header { transition: none; }
 
 /* Enhanced mobile responsive styles */
 @media (max-width: 767px) {
+    .container { padding: 0 1rem } 
     .cart-grid { 
         grid-template-columns: 1fr; 
         gap: 1rem;

@@ -1,5 +1,5 @@
 <main x-cloak x-data="xDataCart()" class="transition-all duration-300" :class="scrolled ? 'pt-20' : 'pt-32'">
-    <div class="container py-8">
+    <div class="container py-8  md:min-h-screen flex items-center justify-center">
   
       <div x-show="globals?.cart?.items?.length > 0" class="cart-grid grid grid-cols-1 lg:grid-cols-3 md:gap-12 gap-4 items-start">
   
@@ -180,10 +180,9 @@
   
       <!-- الحالة: السلة فاضية -->
       <div x-show="!globals?.cart || !globals?.cart?.items || globals?.cart?.items?.length === 0"
-           class="w-full min-h-[60vh] flex justify-center items-center">
-                       <div class="transition-all duration-300 pt-36 lg:pt-36">
-             <div class="container mx-auto pb-16">
-                <div class="bg-white rounded-2xl shadow border p-8 md:p-12 max-w-3xl mx-auto text-center">
+           class="w-full  flex justify-center items-center">
+                       <div class="transition-all duration-300 ">
+                <div class="bg-white rounded-2xl md:shadow border p-4 md:p-12 max-w-3xl mx-auto text-center">
                     <div class="mx-auto h-20 w-20 rounded-full bg-gray-100 flex items-center justify-center text-gray-500">
                         <svg class="h-10 w-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 7h18M3 7l2 12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2l2-12M8 7V5a4 4 0 0 1 8 0v2"/>
@@ -203,7 +202,6 @@
                         </a>
                     </div>
                 </div>
-            </div>
         </div>
       </div>
   

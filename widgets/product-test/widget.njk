@@ -1,236 +1,247 @@
-<section id="{{ widget.id }}" x-data="xDataproduct({ product: context.product })"  x-ref="productComponent" class="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      <template x-if="context.product._id">
-        
-    <div class="container mx-auto py-12 flex flex-col gap-20">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-            <!-- Product Gallery -->
-            <div x-data="{ imgSelected:0 }" class="product-gallery flex flex-col gap-6">
-                <div class="main-image-container bg-white rounded-2xl shadow-xl p-6">
-                    <img id="main-product-image" :src="context.product.images[imgSelected].fileUrl"
-                        alt="صورة المنتج الرئيسية" style="object-fit: contain; height: 400px;"
-                        class="w-full rounded-xl shadow-lg object-cover">
-                </div>
-                <div class="flex gap-3 overflow-x-auto whitespace-nowrap scrollbar-custom">
-                    <template x-for="(image, index) in context.product.images" :key="index">
-                        <img @click="imgSelected = index"
-                            class="w-[70px] h-[70px] md:w-[90px] md:h-[90px] rounded-xl border-2 object-cover cursor-pointer transition-all duration-300 hover:scale-105"
-                            :src="image.fileUrl"
-                            :class="imgSelected === index ? 'border-[#003033] shadow-lg' : 'border-gray-200 hover:border-gray-300'">
-                    </template>
-                </div>
-            </div>
+<section id="{{ widget.id }}" x-data="xDataproduct({ product: context.product })" x-ref="productComponent"
+    class="min-h-screen bg-gradient-to-b from-gray-50 to-white">
 
-            <!-- Product Details -->
-            <form @submit.prevent="submitForm($event)" id="productForm" enctype="multipart/form-data" method="post"
-                class="product-details flex flex-col gap-8 bg-white rounded-2xl shadow-xl p-8">
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 font-['Cairo',sans-serif] leading-tight" x-text="context.product.title"></h1>
-                <input type="hidden" name="product" value="{{ context.product._id }}" />
-
-                <template x-if="context.product.options.length > 0">
-                    <div class="flex flex-col gap-2">
-                        <template x-if="!resolvedPrice?.price">
-                            <span class="text-amber-600 font-bold font-['Cairo',sans-serif] text-lg">يرجى تحديد خيارات المنتج</span>
+        <div class="container py-12 flex flex-col gap-20">
+            <div class="relative grid md:items-start lg:grid-cols-12 gap-y-6 gap-6 xl:gap-10">
+                <!-- Product Gallery -->
+                <div x-data="{ imgSelected:0 }" class="lg:sticky lg:top-24 col-span-5  lg:col-span-6  product-gallery flex flex-col gap-2">
+                    <div class="main-image-container bg-white rounded-2xl shadow p-6">
+                        <img id="main-product-image" :src="context.product.images[imgSelected].fileUrl"
+                            alt="صورة المنتج الرئيسية" style="object-fit: contain; height: 400px;"
+                            class="w-full rounded-xl shadow-lg object-cover">
+                    </div>
+                    <div class="flex gap-3 overflow-x-auto whitespace-nowrap scrollbar-custom">
+                        <template x-for="(image, index) in context.product.images" :key="index">
+                            <img @click="imgSelected = index"
+                                class="w-[70px] h-[70px] md:w-[90px] md:h-[90px] rounded-xl border-2 object-cover cursor-pointer transition-all duration-300 hover:scale-105"
+                                :src="image.fileUrl"
+                                :class="imgSelected === index ? 'border-[#003033] shadow' : 'border-gray-200 hover:border-gray-300'">
                         </template>
+                    </div>
+                </div>
 
-                        <template
-                            x-if="resolvedPrice?.compareAtPrice && resolvedPrice?.compareAtPrice > resolvedPrice?.price && (resolvedPrice?.price >0 ) ">
-                            <div class="flex items-end gap-4">
-                                <div class="text-4xl font-extrabold text-[#003033] flex items-center gap-2 font-['Cairo',sans-serif]">
-                                    <div class="price-info">
-                                        <p x-text="resolvedPrice.price"
-                                            class="text-4xl font-bold text-[#003033]"></p>
+                <!-- Product Details -->
+                <form @submit.prevent="submitForm($event)" id="productForm" enctype="multipart/form-data" method="post"
+                    class="lg:col-span-6  col-span-5 product-details flex flex-col gap-8 bg-white rounded-2xl md:shadow p-2 ">
+                    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 font-['Cairo',sans-serif] leading-tight"
+                        x-text="context.product.title"></h1>
+                    <input type="hidden" name="product" value="{{ context.product._id }}" />
+
+                    <template x-if="context.product.options.length > 0">
+                        <div class="flex flex-col gap-2">
+                            <template x-if="!resolvedPrice?.price">
+                                <span class="text-amber-600 font-bold font-['Cairo',sans-serif] text-lg">يرجى تحديد
+                                    خيارات المنتج</span>
+                            </template>
+
+                            <template
+                                x-if="resolvedPrice?.compareAtPrice && resolvedPrice?.compareAtPrice > resolvedPrice?.price && (resolvedPrice?.price >0 ) ">
+                                <div class="flex items-end gap-4">
+                                    <div
+                                        class="text-4xl font-extrabold text-[#003033] flex items-center gap-2 font-['Cairo',sans-serif]">
+                                        <div class="price-info flex items-center gap-1">
+                                            <p x-text="resolvedPrice.price" class="text-4xl font-bold text-[#003033]">
+                                            </p>
+                                            <span x-text="globals.app.generalSettings.currency.currencySymbol"></span>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="line-through text-gray-400 flex items-center gap-1 font-['Cairo',sans-serif] text-2xl">
+                                        <span x-text="resolvedPrice.compareAtPrice"></span>
                                         <span x-text="globals.app.generalSettings.currency.currencySymbol"></span>
                                     </div>
                                 </div>
-                                <div class="line-through text-gray-400 flex items-center gap-1 font-['Cairo',sans-serif] text-2xl">
-                                    <span x-text="resolvedPrice.compareAtPrice"></span>
-                                    <span x-text="globals.app.generalSettings.currency.currencySymbol"></span>
-                                </div>
-                            </div>
-                        </template>
+                            </template>
 
-                        <template
-                            x-if="resolvedPrice && (!resolvedPrice.compareAtPrice || resolvedPrice.compareAtPrice === resolvedPrice.price) &&(resolvedPrice?.price >0 )">
-                            <div class="text-4xl font-extrabold text-[#003033] flex items-center gap-2 font-['Cairo',sans-serif]">
-                                <div class="price-info">
-                                    <p class="text-4xl font-bold text-[#003033]" x-text="resolvedPrice.price">
-                                    </p>
-                                    <span x-show="resolvedPrice.price"
-                                        x-text="globals.app.generalSettings.currency.currencySymbol"></span>
-                                </div>
-                            </div>
-                        </template>
-                    </div>
-                </template>
-
-                <!-- بدون خيارات -->
-                <template x-if="context.product.options.length === 0 && context.product.pricing.price > 0 ">
-                    <div class="flex flex-col gap-1">
-                        <template
-                            x-if="context.product.pricing?.compareAtPrice && context.product.pricing?.compareAtPrice > context.product.pricing?.price">
-                            <div class="flex items-end gap-3">
-                                <div class="text-3xl font-extrabold text-[#6A057F] flex items-center gap-1">
+                            <template
+                                x-if="resolvedPrice && (!resolvedPrice.compareAtPrice || resolvedPrice.compareAtPrice === resolvedPrice.price) &&(resolvedPrice?.price >0 )">
+                                <div
+                                    class="text-4xl font-extrabold text-[#003033] flex items-center gap-2 font-['Cairo',sans-serif]">
                                     <div class="price-info">
-                                        <p class="text-3xl font-bold text-custom-blue-light"
-                                            x-text="context.product.pricing.price"></p>
-                                        <span x-show="context.product.pricing.price"
+                                        <p class="text-4xl font-bold text-[#003033]" x-text="resolvedPrice.price">
+                                        </p>
+                                        <span x-show="resolvedPrice.price"
                                             x-text="globals.app.generalSettings.currency.currencySymbol"></span>
                                     </div>
                                 </div>
-                                <div class="line-through text-[#8B8E99] flex items-center gap-1">
+                            </template>
+                        </div>
+                    </template>
+
+                    <!-- بدون خيارات -->
+                    <template x-if="context.product.options.length === 0 && context.product.pricing.price > 0 ">
+                        <div class="flex flex-col gap-1">
+                            <template
+                                x-if="context.product.pricing?.compareAtPrice && context.product.pricing?.compareAtPrice > context.product.pricing?.price">
+                                <div class="flex items-end gap-3">
+                                    <div class="text-3xl font-extrabold  flex items-center gap-1">
+                                        <div class="price-info flex items-center gap-1">
+                                            <p class="text-3xl font-bold text-custom-blue-light"
+                                                x-text="context.product.pricing.price"></p>
+                                            <span x-show="context.product.pricing.price"
+                                                x-text="globals.app.generalSettings.currency.currencySymbol"></span>
+                                        </div>
+                                    </div>
+                                    <div class="line-through text-[#8B8E99] flex items-center gap-1">
+                                        <p class=" font-bold text-custom-blue-light"
+                                            x-text="context.product.pricing.compareAtPrice"></p>
+                                        </span>
+                                        <span x-show="context.product.pricing.price"
+                                            x-text="globals.app.generalSettings.currency.currencySymbol">
+                                    </div>
+                                </div>
+                            </template>
+
+                            <template
+                                x-if="!context.product.pricing?.compareAtPrice || context.product.pricing?.compareAtPrice === context.product.pricing?.price">
+                                <div class="text-3xl font-extrabold  flex items-center gap-1">
                                     <p class="text-3xl font-bold text-custom-blue-light"
-                                        x-text="context.product.pricing.compareAtPrice"></p>
-                                    </span>
+                                        x-text="context.product.pricing?.price"></p>
                                     <span x-show="context.product.pricing.price"
-                                        x-text="globals.app.generalSettings.currency.currencySymbol">
+                                        x-text="globals.app.generalSettings.currency.currencySymbol"></span>
                                 </div>
-                            </div>
-                        </template>
+                            </template>
+                        </div>
+                    </template>
 
-                        <template
-                            x-if="!context.product.pricing?.compareAtPrice || context.product.pricing?.compareAtPrice === context.product.pricing?.price">
-                            <div class="text-3xl font-extrabold text-[#6A057F] flex items-center gap-1">
-                                <p class="text-3xl font-bold text-custom-blue-light"
-                                    x-text="context.product.pricing?.price"></p>
-                                <span x-show="context.product.pricing.price"
-                                    x-text="globals.app.generalSettings.currency.currencySymbol"></span>
-                            </div>
-                        </template>
-                    </div>
-                </template>
-
-                <div x-init="initOptions()" @submit.prevent="addProductToCart" class="flex flex-col gap-6">
-                    <div class="flex flex-col gap-4" x-show="context.product.options.length > 0">
-                        <template x-for="opt in context.product.options" :key="opt._id">
-                            <div class="flex flex-col gap-3">
-                                <div class="flex items-center gap-3">
-                                    <p class="font-bold text-gray-700 font-['Cairo',sans-serif] text-lg" x-text="opt.name"></p>:
-                                    <span class="text-[#003033] font-bold text-xl font-['Cairo',sans-serif]"
-                                        x-text="opt.values.find(v => v._id === selectedOptions[opt._id])?.label"></span>
-                                </div>
-                                <div class="flex flex-wrap gap-3">
-                                    <template x-for="val in opt.values" :key="val._id">
-                                        <button type="button" class="relative min-w-12 h-12 flex items-center justify-center px-4 py-2 rounded-xl border-2 transition-all duration-300
-                                              focus:outline-none font-['Cairo',sans-serif] font-bold" :class="selectedOptions[opt._id] === val._id
+                    <div x-init="initOptions()" @submit.prevent="addProductToCart" class="flex flex-col gap-6">
+                        <div class="flex flex-col gap-4" x-show="context.product.options.length > 0">
+                            <template x-for="opt in context.product.options" :key="opt._id">
+                                <div class="flex flex-col gap-3">
+                                    <div class="flex items-center gap-3">
+                                        <p class="font-bold text-gray-700 font-['Cairo',sans-serif] text-lg"
+                                            x-text="opt.name"></p>:
+                                        <span class="text-[#003033] font-bold text-xl font-['Cairo',sans-serif]"
+                                            x-text="opt.values.find(v => v._id === selectedOptions[opt._id])?.label"></span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-3">
+                                        <template x-for="val in opt.values" :key="val._id">
+                                            <button type="button" class="relative min-w-12 h-12 flex items-center justify-center px-4 py-2 rounded-xl border-2 transition-all duration-300
+                                              focus:outline-none font-['Cairo',sans-serif] font-bold"
+                                                :class="selectedOptions[opt._id] === val._id
                                                ? 'border-[#003033] bg-[#003033] text-white shadow-lg'
                                                : 'border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-50'"
-                                            @click.prevent="selectOption(context.product,opt._id, val._id)">
-                                            <span class="text-sm" x-text="val.label"></span>
-                                        </button>
-                                    </template>
+                                                @click.prevent="selectOption(context.product,opt._id, val._id)">
+                                                <span class="text-sm" x-text="val.label"></span>
+                                            </button>
+                                        </template>
+                                    </div>
                                 </div>
-                            </div>
+                            </template>
+                        </div>
+                        <template x-for="val in Object.values(selectedOptions)" :key="val">
+                            <input type="hidden" name="options[]" :value="val">
                         </template>
                     </div>
-                    <template x-for="val in Object.values(selectedOptions)" :key="val">
-                        <input type="hidden" name="options[]" :value="val">
-                    </template>
-                </div>
-                <hr class="border-gray-200 my-6">
-                <div class="quantity-selector flex flex-col gap-3">
-                    <label for="quantity" class="block text-lg font-bold text-gray-700 font-['Cairo',sans-serif]">الكمية:</label>
-                    <div class="flex items-center border-2 border-gray-300 rounded-2xl w-fit overflow-hidden shadow-md">
-                        <button type="button"
-                            class="px-6 py-3 text-xl font-bold text-gray-600 hover:bg-gray-100 transition-colors duration-200"
-                            @click="decreaseCartItem()" aria-label="تقليل الكمية">
-                            <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"
-                                width="20" height="20">
-                                <rect y="11" width="24" height="2" />
-                            </svg>
-                        </button>
-                        <input name="quantity" min="1" :value="productQuantity"
-                            class="w-20 text-center border-x-2 border-gray-300 focus:outline-none bg-transparent text-xl font-bold font-['Cairo',sans-serif]">
-                        <button type="button"
-                            class="px-6 py-3 text-xl font-bold text-gray-600 hover:bg-gray-100 transition-colors duration-200"
-                            @click="increaseCartItem()" aria-label="زيادة الكمية">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
-                                <g id="_01_align_center" data-name="01 align center">
-                                    <polygon
-                                        points="24 11 13 11 13 0 11 0 11 11 0 11 0 13 11 13 11 24 13 24 13 13 24 13 24 11" />
-                                </g>
-                            </svg>
-                        </button>
+                    <div class="quantity-selector flex flex-col gap-3 border-t pt-2 ">
+                        <label for="quantity"
+                            class="block text-lg font-bold text-gray-700 font-['Cairo',sans-serif]">الكمية:</label>
+                        <div
+                            class="flex items-center border-2 border-gray-300 rounded-2xl w-fit overflow-hidden shadow-md">
+                            <button type="button"
+                                class="px-6 py-3 text-xl font-bold text-gray-600 hover:bg-gray-100 transition-colors duration-200"
+                                @click="decreaseCartItem()" aria-label="تقليل الكمية">
+                                <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1"
+                                    viewBox="0 0 24 24" width="20" height="20">
+                                    <rect y="11" width="24" height="2" />
+                                </svg>
+                            </button>
+                            <input name="quantity" min="1" :value="productQuantity"
+                                class="w-20 text-center border-x-2 border-gray-300 focus:outline-none bg-transparent text-xl font-bold font-['Cairo',sans-serif]">
+                            <button type="button"
+                                class="px-6 py-3 text-xl font-bold text-gray-600 hover:bg-gray-100 transition-colors duration-200"
+                                @click="increaseCartItem()" aria-label="زيادة الكمية">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                                    <g id="_01_align_center" data-name="01 align center">
+                                        <polygon
+                                            points="24 11 13 11 13 0 11 0 11 11 0 11 0 13 11 13 11 24 13 24 13 13 24 13 24 11" />
+                                    </g>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="buy-buttons grid grid-cols-1 gap-4">
-                    <button type="submit" name="addToCart" value="addToCart"
-                        :disabled="loading.addToCart || loading.buyNow || productQuantity === 0" :aria-busy="loading.addToCart"
-                        aria-label="إضافة المنتج إلى السلة"
-                        class="w-full py-5 min-h-16 border-2 border-[#003033] text-[#003033] font-bold rounded-2xl text-xl font-['Cairo',sans-serif] transition-all duration-300 hover:bg-[#003033] hover:text-white hover:shadow-xl transform hover:-translate-y-1">
-                        <span x-show="!loading.addToCart">إضافة إلى السلة</span>
-                        <template x-if="loading.addToCart">
-                            <div class="flex justify-center">
-                                {%ui "loading.njk" %}
+                    <div class="buy-buttons grid grid-cols-1 gap-4">
+                        <button type="submit" name="addToCart" value="addToCart"
+                            :disabled="loading.addToCart || loading.buyNow || productQuantity === 0"
+                            :aria-busy="loading.addToCart" aria-label="إضافة المنتج إلى السلة"
+                            class="w-full py-5 min-h-16 border-2 border-[#003033] text-[#003033] font-bold rounded-2xl text-xl font-['Cairo',sans-serif] transition-all duration-300 hover:bg-[#003033] hover:text-white hover:shadow-xl transform hover:-translate-y-1">
+                            <span x-show="!loading.addToCart">إضافة إلى السلة</span>
+                            <template x-if="loading.addToCart">
+                                <div class="flex justify-center">
+                                    {%ui "loading.njk" %}
+                                </div>
+                            </template>
+                        </button>
+
+                        <button type="submit" name="buyNow" value="buyNow" :disabled="loading.buyNow"
+                            :aria-busy="loading.buyNow"
+                            class="w-full py-5 min-h-16 flex items-center justify-center bg-gradient-to-r from-[#003033] to-[#004d52] text-white font-bold rounded-2xl text-xl font-['Cairo',sans-serif] shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+
+                            <div class="flex items-center gap-2 justify-center w-full" x-show="!loading.buyNow">اشترى
+                                الآن
+                                <i class="fi fi-ts-picnic"></i>
                             </div>
-                        </template>
-                    </button>
+                            <template x-if="loading.buyNow">
+                                <div class="flex justify-center">
+                                    {%ui "loading.njk" %}
+                                </div>
+                            </template>
+                        </button>
 
-                    <button type="submit" name="buyNow" value="buyNow"
-                        :disabled="loading.buyNow"
-                        :aria-busy="loading.buyNow"
-                        class="w-full py-5 min-h-16 flex items-center justify-center bg-gradient-to-r from-[#003033] to-[#004d52] text-white font-bold rounded-2xl text-xl font-['Cairo',sans-serif] shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    </div>
+                    <div class="accordion-group flex flex-col gap-4">
+                        <details class="accordion-item bg-gray-50 p-6 rounded-2xl shadow-md border border-gray-100"
+                            open>
+                            <summary
+                                class="font-bold text-xl cursor-pointer text-[#003033] flex justify-between items-center font-['Cairo',sans-serif] hover:text-[#004d52] transition-colors duration-200">
+                                الوصف<svg class="chevron-icon w-6 h-6 text-gray-500 transition-transform duration-200"
+                                    fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                </svg></summary>
+                            <div x-html="context.product.description || 'لا يوجد وصف للمنتج'"
+                                class="text-gray-700 max-w-none text-right flex flex-col gap-4 font-['Cairo',sans-serif] text-lg leading-relaxed mt-4">
 
-                        <div class="flex items-center gap-2 justify-center w-full" x-show="!loading.buyNow">اشترى الآن
-                            <i class="fi fi-ts-picnic"></i>
-                        </div>
-                        <template x-if="loading.buyNow">
-                            <div class="flex justify-center">
-                                {%ui "loading.njk" %}
                             </div>
-                        </template>
-                    </button>
-
-                </div>
-                <div class="accordion-group flex flex-col gap-4">
-                    <details class="accordion-item bg-gray-50 p-6 rounded-2xl shadow-md border border-gray-100" open>
-                        <summary
-                            class="font-bold text-xl cursor-pointer text-[#003033] flex justify-between items-center font-['Cairo',sans-serif] hover:text-[#004d52] transition-colors duration-200">
-                            الوصف<svg class="chevron-icon w-6 h-6 text-gray-500 transition-transform duration-200" fill="none" viewBox="0 0 24 24"
-                                stroke-width="2" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                            </svg></summary>
-                        <div x-html="context.product.description || 'لا يوجد وصف للمنتج'"
-                            class="text-gray-700 max-w-none text-right flex flex-col gap-4 font-['Cairo',sans-serif] text-lg leading-relaxed mt-4">
-
-                        </div>
-                    </details>
-                    <details class="accordion-item bg-gray-50 p-6 rounded-2xl shadow-md border border-gray-100">
-                        <summary
-                            class="font-bold text-xl cursor-pointer text-[#003033] flex justify-between items-center font-['Cairo',sans-serif] hover:text-[#004d52] transition-colors duration-200">
-                            سياسة الشحن<svg class="chevron-icon w-6 h-6 text-gray-500 transition-transform duration-200" fill="none" viewBox="0 0 24 24"
-                                stroke-width="2" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                            </svg></summary>
-                        <div class="text-gray-700 max-w-none text-right font-['Cairo',sans-serif] text-lg leading-relaxed mt-4">
-                            <p>يتم التوصيل داخل مصر عن طريق مندوب توصيل - تصلك الشحنة خلال 3-5 أيام.</p>
-                        </div>
-                    </details>
-                </div>
-        </div>
-    </div>
-    {% if context.related_products | length > 0 %}
-    <section class="related-products flex flex-col gap-12 container mx-auto">
-        <h2 class="text-4xl font-bold text-center text-[#003033] font-['Cairo',sans-serif] mb-8">ربما يعجبك أيضاً</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {% for item in context.related_products %}
-            <div
-                class="product-card bg-white rounded-2xl shadow-lg overflow-hidden transform hover:-translate-y-3 transition-all duration-500 hover:shadow-2xl border border-gray-100 hover:border-gray-200">
-                <a href="/product/{{ item.slug }}"><img src={{ item.images[0].fileUrl }} alt="شاحن سريع"
-                        class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"></a>
-                <div class="p-6 text-center flex flex-col gap-3">
-                    <h3 class="font-bold text-[#003033] font-['Cairo',sans-serif] text-lg leading-tight">{{ item.title }}</h3>
-                    <p class="text-[#004d52] font-bold font-['Cairo',sans-serif] text-xl">{{ item.pricing.price| money }}</p>
-                </div>
+                        </details>
+                        <details class="accordion-item bg-gray-50 p-6 rounded-2xl shadow-md border border-gray-100">
+                            <summary
+                                class="font-bold text-xl cursor-pointer text-[#003033] flex justify-between items-center font-['Cairo',sans-serif] hover:text-[#004d52] transition-colors duration-200">
+                                سياسة الشحن<svg
+                                    class="chevron-icon w-6 h-6 text-gray-500 transition-transform duration-200"
+                                    fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                </svg></summary>
+                            <div
+                                class="text-gray-700 max-w-none text-right font-['Cairo',sans-serif] text-lg leading-relaxed mt-4">
+                                <p>يتم التوصيل داخل مصر عن طريق مندوب توصيل - تصلك الشحنة خلال 3-5 أيام.</p>
+                            </div>
+                        </details>
+                    </div>
             </div>
-            {% endfor %}
         </div>
-    </section>
-    {% endif %}
-</template>
-<div x-cloak
-x-show="!context?.product || !context?.product?._id"
-class="fixed inset-0 z-[9999]  grid place-items-center bg-white/80 backdrop-blur-sm">
-{%ui "loading.njk" %}
-</div>
+        {% if context.related_products | length > 0 %}
+        <section class="related-products flex flex-col gap-12 container py-4">
+            <h2 class="text-4xl font-bold text-center text-[#003033] font-['Cairo',sans-serif]">ربما يعجبك أيضاً
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                {% for item in context.related_products %}
+                <div
+                    class="product-card bg-white rounded-2xl shadow-lg overflow-hidden transform hover:-translate-y-3 transition-all duration-500 hover:shadow-2xl border border-gray-100 hover:border-gray-200">
+                    <a href="/product/{{ item.slug }}"><img src={{ item.images[0].fileUrl }} alt="شاحن سريع"
+                            class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"></a>
+                    <div class="p-6 text-center flex flex-col gap-3">
+                        <h3 class="font-bold text-[#003033] font-['Cairo',sans-serif] text-lg leading-tight">{{
+                            item.title }}</h3>
+                        <p class="text-[#004d52] font-bold font-['Cairo',sans-serif] text-xl">{{ item.pricing.price|
+                            money }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
 
 </section>
