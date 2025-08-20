@@ -1,16 +1,16 @@
 <main class="transition-all duration-300" :class="scrolled ? 'pt-24' : 'pt-36'">
     <div class="container py-8">
-        <h1 class="text-3xl font-bold text-center text-gray-800 mb-8 font-['Cairo']">اقسام المتجر</h1>
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-8 font-cairo">اقسام المتجر</h1>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {% for collection in context.collections %}
             <div
-                class="bg-white rounded-2xl shadow-lg hover:shadow-2xl border border-gray-200 hover:border-gray-300 overflow-hidden transition-all duration-500 group transform hover:-translate-y-2">
+                class="bg-white rounded-lg shadow-sm hover:shadow-md border border-gray-200 hover:border-gray-300 overflow-hidden transition-all duration-300 group transform hover:-translate-y-1">
                 <a href="collection/{{ collection.slug }}" class="block relative">
                     <img src={{collection.image.fileUrl}} alt="Product 1"
                         class="w-full h-auto aspect-square object-cover transition-opacity duration-300">
                 </a>
                 <h3
-                    class="font-bold text-gray-900 text-sm md:text-base font-['Cairo'] leading-tight min-h-[3rem] flex items-center justify-center">
+                    class="font-semibold text-gray-900 text-sm md:text-base font-cairo leading-tight min-h-[3rem] flex items-center justify-center">
                     <a href="collection/{{ collection.slug }}" class="hover:text-gray-700 transition-colors duration-200">{{ product.title }}</a>
                 </h3>
             </div>

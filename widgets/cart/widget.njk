@@ -1,210 +1,234 @@
-<main x-cloak x-data="xDataCart()" class="transition-all duration-300" :class="scrolled ? 'pt-20' : 'pt-32'">
-    <div class="container py-8  md:min-h-screen flex items-center justify-center">
-  
-      <div x-show="globals?.cart?.items?.length > 0" class="cart-grid grid grid-cols-1 lg:grid-cols-3 md:gap-12 gap-4 items-start">
-  
-        <div class="order-2 lg:order-1 lg:col-span-2 flex flex-col gap-8">
-          <div class="bg-white rounded-2xl shadow border p-4  xl:p-8">
-            <!-- Header - Desktop -->
-            <div class="product-grid  lg:grid-cols-12 gap-6 items-center border-b pb-6 hidden lg:grid">
-              <div class="col-span-12 lg:col-span-6 xl:col-span-6 text-base lg:text-lg xl:text-xl font-bold">المنتج</div>
-              <div class="col-span-12 lg:col-span-3 xl:col-span-3 text-base lg:text-lg xl:text-xl font-bold text-center">الكمية</div>
-              <div class="col-span-12 lg:col-span-3 xl:col-span-3 text-base lg:text-lg xl:text-xl font-bold text-center">الإجمالي</div>
-            </div>
-  
-            <div class="lg:hidden">
-              <h2 class="text-xl font-bold text-gray-900">سلة المشتريات</h2>
-              <p class="text-sm text-gray-600"><span x-text="globals?.cart?.items?.length || 0"></span> منتج</p>
-            </div>
-  
-            <template x-for="item in globals?.cart?.items" :key="item._id">
-              <div class="product-grid  lg:grid-cols-12 gap-6 items-center border-b py-4 hidden lg:grid">
-                <div class="col-span-12 lg:col-span-6 xl:col-span-6 flex flex-col lg:flex-row items-start lg:items-center gap-4">
-                  <img :src="item?.productData?.image?.fileUrl"
-                       :alt="item?.productData?.title"
-                       class="w-20 h-20 lg:w-24 lg:h-24 xl:w-28 xl:h-28 rounded-md object-cover border flex-shrink-0">
-                  <div class="flex-1 min-w-0 flex flex-col gap-1">
-                    <div class="font-bold text-sm lg:text-base xl:text-lg leading-snug clamp-2" x-text="item?.productData?.title"></div>
-                    <template x-if="item?.variantData?.options?.length">
-                      <div class="text-gray-500 text-xs lg:text-sm">
-                        <template x-for="opt in item?.variantData?.options" :key="opt?._id">
-                          <span class="mr-2">
-                            <span x-text="opt?.option?.name"></span>: <span x-text="opt?.label"></span>
-                          </span>
-                        </template>
-                      </div>
-                    </template>
-                  </div>
-                </div>
-  
-                <div class="col-span-12 lg:col-span-3 xl:col-span-3 flex flex-col items-center gap-2">
-                  <div class="flex items-center gap-2">
-                    <button class="w-10 h-10 border rounded-md font-bold"
-                            @click="decreaseCartItem(item._id, item.quantity)"
-                            aria-label="تقليل الكمية">-</button>
-  
-                    <span class="w-14 h-10 grid place-items-center border rounded-md font-bold"
-                          x-text="item.quantity"></span>
-  
-                    <button class="w-10 h-10 border rounded-md font-bold"
-                            @click="increaseCartItem(item._id, item.quantity)"
-                            aria-label="زيادة الكمية">+</button>
-                  </div>
-                  <button class="text-xs lg:text-sm text-red-500 hover:underline"
-                          @click="clearCartItem(item._id)"
-                          aria-label="إزالة">إزالة</button>
-                </div>
-  
-                <div class="col-span-12 lg:col-span-3 xl:col-span-3 flex flex-col items-center gap-2">
-                  <div class="text-base lg:text-lg xl:text-xl font-bold text-[#003033] total-amount">
-                    <span x-text="item?.totalCompareAtPrice ?? ( (item?.productData?.price || 0) * (item?.quantity || 0) )"></span>
-                    <span x-text="globals?.currency?.currencySymbol"></span>
-                  </div>
-                  <div class="text-xs lg:text-sm text-gray-500 quantity-display">
-                    <span x-text="(item?.productData?.price || 0)"></span>
-                    <span x-text="globals?.currency?.currencySymbol"></span>
-                    ×
-                    <span x-text="item?.quantity"></span>
-                  </div>
-                </div>
-              </div>
-            </template>
-  
-            <template x-for="item in globals?.cart?.items" :key="item._id">
-              <div class="lg:hidden w-full border rounded-xl p-4 shadow-sm">
-                <div class="flex items-start gap-4">
-                  <img :src="item?.productData?.image?.fileUrl" :alt="item?.productData?.title"
-                       class="w-20 h-20 rounded-md object-cover border flex-shrink-0">
-                  <div class="flex-1 min-w-0">
-                    <div class="font-bold text-base leading-snug clamp-2" x-text="item?.productData?.title"></div>
-                    <template x-if="item?.variantData?.options?.length">
-                      <div class="text-gray-500 text-sm mt-1">
-                        <template x-for="opt in item?.variantData?.options" :key="opt?._id">
-                          <span class="mr-2">
-                            <span x-text="opt?.option?.name"></span>: <span x-text="opt?.label"></span>
-                          </span>
-                        </template>
-                      </div>
-                    </template>
-                    <div class="text-[#003033] font-bold mt-2">
-                      <span x-text="item?.totalCompareAtPrice ?? ( (item?.productData?.price || 0) * (item?.quantity || 0) )"></span>
-                      <span x-text="globals?.currency?.currencySymbol"></span>
-                    </div>
-                  </div>
-                </div>
-  
-                <div class="flex items-center justify-between border-t pt-4 mt-4">
-                  <div class="flex items-center gap-2">
-                    <button class="w-10 h-10 border rounded-md font-bold"
-                            @click="decreaseCartItem(item._id, item.quantity)">-</button>
-                    <span class="w-14 h-10 grid place-items-center border rounded-md font-bold"
-                          x-text="item.quantity"></span>
-                    <button class="w-10 h-10 border rounded-md font-bold"
-                            @click="increaseCartItem(item._id, item.quantity)">+</button>
-                  </div>
-                  <button class="text-sm text-red-500 hover:underline px-3 py-2 border border-red-500 rounded-lg hover:bg-red-50"
-                          @click="clearCartItem(item._id)">إزالة</button>
-                </div>
-              </div>
-            </template>
+<main x-cloak x-data="xDataCart()" class="transition-all duration-300" :class="scrolled ? 'pt-24' : 'pt-36'">
+  <div class="container mx-auto py-8">
+    
+    <!-- عنوان الصفحة -->
+    <div class="mb-8 text-center">
+      <h1 class="text-3xl font-bold text-gray-900 font-cairo mb-2">سلة المشتريات</h1>
+      <p class="text-gray-600 font-cairo">مراجعة وإتمام طلبك</p>
+    </div>
+
+    <!-- محتوى السلة -->
+    <div x-show="globals?.cart?.items?.length > 0">
+      
+      <!-- جدول المنتجات - Desktop -->
+      <div class="hidden lg:block bg-white rounded-xl shadow-sm border border-gray-200 mb-6">
+        <!-- رأس الجدول -->
+        <div class="grid grid-cols-12 gap-6 p-6 border-b border-gray-100 bg-gray-50 rounded-t-xl">
+          <div class="col-span-6">
+            <h3 class="text-lg font-semibold text-gray-800 font-cairo">المنتج</h3>
           </div>
-  
-          {# <div x-data="{ open: false }" class="bg-white rounded-2xl shadow border">
-            <button @click="open = !open" class="w-full flex items-center justify-between p-6 lg:p-8 xl:p-10 2xl:p-12 cursor-pointer focus:outline-none">
-              <div class="flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#003033]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h1l2 9h13l2-9h1" /></svg>
-                <span class="text-base lg:text-lg xl:text-xl font-bold">التكلفة التقديرية للشحن</span>
-              </div>
-              <svg :class="{'rotate-180': open}" class="h-5 w-5 text-gray-500 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-            </button>
-            <div x-show="open" x-transition class="px-6 lg:px-8 xl:px-10 2xl:px-12 pb-6 lg:pb-8 xl:pb-10 2xl:pb-12 pt-0">
-              <div class="flex flex-wrap gap-6">
-                <div class="w-full sm:w-48">
-                  <label class="block text-sm pb-1">البلد</label>
-                  <select class="w-full border rounded-lg p-2 lg:p-3 focus:outline-none focus:ring-2 focus:ring-[#003033]">
-                    <option>مصر</option>
-                  </select>
-                </div>
-                <div class="w-full sm:w-48">
-                  <label class="block text-sm pb-1">المقاطعة</label>
-                  <select class="w-full border rounded-lg p-2 lg:p-3 focus:outline-none focus:ring-2 focus:ring-[#003033]">
-                    <option>6th of October</option>
-                  </select>
-                </div>
-                <div class="w-full sm:w-48">
-                  <label class="block text-sm pb-1">الرمز البريدي</label>
-                  <input type="text" class="w-full border rounded-lg p-2 lg:p-3 focus:outline-none focus:ring-2 focus:ring-[#003033]" placeholder="">
-                </div>
-                <button class="flex items-center gap-3 border-2 border-[#003033] text-[#003033] rounded-full px-8 lg:px-10 xl:px-12 py-3 lg:py-4 text-base lg:text-lg xl:text-xl font-bold transition hover:bg-[#003033] hover:text-white">
-                  التكلفة التقديرية
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7" /></svg>
-                </button>
-              </div>
-            </div>
-          </div> #}
+          <div class="col-span-2 text-center">
+            <h3 class="text-lg font-semibold text-gray-800 font-cairo">السعر</h3>
+          </div>
+          <div class="col-span-2 text-center">
+            <h3 class="text-lg font-semibold text-gray-800 font-cairo">الكمية</h3>
+          </div>
+          <div class="col-span-2 text-center">
+            <h3 class="text-lg font-semibold text-gray-800 font-cairo">الإجمالي</h3>
+          </div>
         </div>
-  
-        <div class="order-1 lg:order-2 lg:col-span-1">
-          <div class="bg-white rounded-2xl shadow border p-4  xl:p-8 flex flex-col gap-4">
-  
-            <div class="flex  items-center  justify-between gap-2">
-              <span class="text-gray-500 text-sm lg:text-base">المجموع الفرعي</span>
-              <span class="text-base lg:text-lg xl:text-xl font-bold text-gray-900 total-amount">
-                <span x-text="globals?.cart?.totalPrice ?? 0"></span>
-                <span x-text="globals?.currency?.currencySymbol"></span>
-              </span>
+
+        <!-- المنتجات -->
+        <template x-for="item in globals?.cart?.items" :key="item._id">
+          <div class="grid grid-cols-12 gap-6 p-6 border-b border-gray-100 hover:bg-gray-50 transition-colors">
+            <!-- معلومات المنتج -->
+            <div class="col-span-6 flex items-center gap-4">
+              <img :src="item?.productData?.image?.fileUrl"
+                   :alt="item?.productData?.title"
+                   class="w-20 h-20 rounded-lg object-cover border border-gray-200 flex-shrink-0">
+              <div class="flex-1 min-w-0">
+                <h4 class="font-semibold text-gray-900 text-lg leading-tight font-cairo mb-2" x-text="item?.productData?.title"></h4>
+                <template x-if="item?.variantData?.options?.length">
+                  <div class="text-sm text-gray-500 font-cairo">
+                    <template x-for="opt in item?.variantData?.options" :key="opt?._id">
+                      <span class="inline-block bg-gray-100 px-2 py-1 rounded-md text-xs mr-2 mb-1">
+                        <span x-text="opt?.option?.name"></span>: <span x-text="opt?.label"></span>
+                      </span>
+                    </template>
+                  </div>
+                </template>
+              </div>
             </div>
-  
-            <div class="w-full mt-2 lg:mt-0">
-              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-1 text-right lg:text-inherit">
-                <span class="text-lg lg:text-xl xl:text-2xl font-bold text-[#003033]">الإجمالي</span>
-                <span class="text-xl lg:text-2xl xl:text-3xl font-bold text-gray-900 total-amount">
-                  <span x-text="(globals?.cart?.totalCompareAtPrice ?? globals?.cart?.totalPrice) ?? 0"></span>
+
+            <!-- السعر -->
+            <div class="col-span-2 flex items-center justify-center">
+              <div class="text-center">
+                <div class="text-lg font-semibold text-gray-900 font-cairo">
+                  <span x-text="item?.productData?.price || 0"></span>
+                  <span x-text="globals?.currency?.currencySymbol"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- الكمية -->
+            <div class="col-span-2 flex items-center justify-center">
+              <div class="flex items-center gap-2">
+                <button class="w-10 h-10 border border-gray-300 rounded-lg font-bold text-gray-700 hover:bg-gray-100 transition-colors flex items-center justify-center"
+                        @click="decreaseCartItem(item._id, item.quantity)"
+                        aria-label="تقليل الكمية">−</button>
+                
+                <span class="w-16 h-10 grid place-items-center border border-gray-300 rounded-lg font-semibold text-gray-900 font-cairo bg-white"
+                      x-text="item.quantity"></span>
+                
+                <button class="w-10 h-10 border border-gray-300 rounded-lg font-bold text-gray-700 hover:bg-gray-100 transition-colors flex items-center justify-center"
+                        @click="increaseCartItem(item._id, item.quantity)"
+                        aria-label="زيادة الكمية">+</button>
+              </div>
+            </div>
+
+            <!-- الإجمالي -->
+            <div class="col-span-2 flex items-center justify-center">
+              <div class="text-center">
+                <div class="text-xl font-bold text-[#003033] font-cairo">
+                  <span x-text="item?.totalCompareAtPrice ?? ( (item?.productData?.price || 0) * (item?.quantity || 0) )"></span>
+                  <span x-text="globals?.currency?.currencySymbol"></span>
+                </div>
+                <button class="text-sm text-red-500 hover:text-red-700 hover:underline font-cairo mt-1"
+                        @click="clearCartItem(item._id)"
+                        aria-label="إزالة">إزالة</button>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+
+      <!-- المنتجات - Mobile -->
+      <div class="lg:hidden space-y-4 mb-6">
+        <template x-for="item in globals?.cart?.items" :key="item._id">
+          <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+            <div class="flex items-start gap-4 mb-4">
+              <img :src="item?.productData?.image?.fileUrl" 
+                   :alt="item?.productData?.title"
+                   class="w-20 h-20 rounded-lg object-cover border border-gray-200 flex-shrink-0">
+              <div class="flex-1 min-w-0">
+                <h4 class="font-semibold text-gray-900 text-lg leading-tight font-cairo mb-2" x-text="item?.productData?.title"></h4>
+                <template x-if="item?.variantData?.options?.length">
+                  <div class="text-sm text-gray-500 font-cairo mb-3">
+                    <template x-for="opt in item?.variantData?.options" :key="opt?._id">
+                      <span class="inline-block bg-gray-100 px-2 py-1 rounded-md text-xs mr-2 mb-1">
+                        <span x-text="opt?.option?.name"></span>: <span x-text="opt?.label"></span>
+                      </span>
+                    </template>
+                  </div>
+                </template>
+                <div class="text-xl font-bold text-[#003033] font-cairo">
+                  <span x-text="item?.totalCompareAtPrice ?? ( (item?.productData?.price || 0) * (item?.quantity || 0) )"></span>
+                  <span x-text="globals?.currency?.currencySymbol"></span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex items-center justify-between border-t border-gray-100 pt-4">
+              <div class="flex items-center gap-2">
+                <button class="w-10 h-10 border border-gray-300 rounded-lg font-bold text-gray-700 hover:bg-gray-100 transition-colors flex items-center justify-center"
+                        @click="decreaseCartItem(item._id, item.quantity)">−</button>
+                <span class="w-16 h-10 grid place-items-center border border-gray-300 rounded-lg font-semibold text-gray-900 font-cairo bg-white"
+                      x-text="item.quantity"></span>
+                <button class="w-10 h-10 border border-gray-300 rounded-lg font-bold text-gray-700 hover:bg-gray-100 transition-colors flex items-center justify-center"
+                        @click="increaseCartItem(item._id, item.quantity)">+</button>
+              </div>
+              <button class="text-sm text-red-500 hover:text-red-700 hover:underline font-cairo px-3 py-2 border border-red-200 rounded-lg hover:bg-red-50"
+                      @click="clearCartItem(item._id)">إزالة</button>
+            </div>
+          </div>
+        </template>
+      </div>
+
+      <!-- ملخص الطلب -->
+      <div class="lg:grid lg:grid-cols-3 lg:gap-8">
+        <!-- تفاصيل إضافية -->
+        <div class="lg:col-span-2 mb-6 lg:mb-0">
+          <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <h3 class="text-xl font-semibold text-gray-900 font-cairo mb-4">تفاصيل إضافية</h3>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 font-cairo mb-2">ملاحظات الطلب</label>
+                <textarea class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#003033] focus:border-transparent font-cairo" 
+                          rows="3" placeholder="أضف أي ملاحظات خاصة بالطلب..."></textarea>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 font-cairo mb-2">تاريخ التسليم المفضل</label>
+                <input type="date" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#003033] focus:border-transparent font-cairo">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ملخص السعر -->
+        <div class="lg:col-span-1">
+          <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sticky top-6">
+            <h3 class="text-xl font-semibold text-gray-900 font-cairo mb-4">ملخص الطلب</h3>
+            
+            <div class="space-y-3 mb-6">
+              <div class="flex justify-between items-center">
+                <span class="text-gray-600 font-cairo">المجموع الفرعي</span>
+                <span class="text-lg font-semibold text-gray-900 font-cairo">
+                  <span x-text="globals?.cart?.totalPrice ?? 0"></span>
                   <span x-text="globals?.currency?.currencySymbol"></span>
                 </span>
               </div>
+              <div class="flex justify-between items-center">
+                <span class="text-gray-600 font-cairo">الشحن</span>
+                <span class="text-lg font-semibold text-gray-900 font-cairo">مجاناً</span>
+              </div>
+              <div class="border-t border-gray-200 pt-3">
+                <div class="flex justify-between items-center">
+                  <span class="text-xl font-bold text-[#003033] font-cairo">الإجمالي</span>
+                  <span class="text-2xl font-bold text-[#003033] font-cairo">
+                    <span x-text="(globals?.cart?.totalPrice ?? 0)"></span>
+                    <span x-text="globals?.currency?.currencySymbol"></span>
+                  </span>
+                </div>
+              </div>
             </div>
-  
+
             <button :disabled="globalLoading.checkout"
-                    class="w-full flex items-center group justify-center gap-3 border border-black text-black rounded-full py-3  text-base lg:text-lg xl:text-xl font-bold transition hover:bg-[#003033] hover:text-white"
+                    class="w-full bg-[#003033] text-white rounded-xl py-4 text-lg font-bold font-cairo hover:bg-[#002529] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
                     @click="checkout()"
                     aria-label="إتمام الشراء">
-                    <i class="fi fi-ts-cart-minus group-hover:text-white text-black "></i>
+              <i class="fi fi-ts-cart-minus"></i>
               <span x-show="!globalLoading.checkout">إتمام الشراء</span>
-              <span x-show="globalLoading.checkout">...</span>
+              <span x-show="globalLoading.checkout">جاري المعالجة...</span>
             </button>
-  
+
+            <div class="mt-4 text-center">
+              <a href="/collections" class="inline-block bg-[#003033] hover:bg-[#004d4d] text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 font-cairo">
+                متابعة التسوق
+              </a>
+            </div>
           </div>
         </div>
       </div>
-  
-      <!-- الحالة: السلة فاضية -->
-      <div x-show="!globals?.cart || !globals?.cart?.items || globals?.cart?.items?.length === 0"
-           class="w-full  flex justify-center items-center">
-                       <div class="transition-all duration-300 ">
-                <div class="bg-white rounded-2xl md:shadow border p-4 md:p-12 max-w-3xl mx-auto text-center">
-                    <div class="mx-auto h-20 w-20 rounded-full bg-gray-100 flex items-center justify-center text-gray-500">
-                        <svg class="h-10 w-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7h18M3 7l2 12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2l2-12M8 7V5a4 4 0 0 1 8 0v2"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6M9 16h4"/>
-                        </svg>
-                    </div>
-                    <h1 class="mt-6 text-2xl md:text-3xl font-bold text-gray-900">لا يوجد عناصر حالياً</h1>
-                    <p class="mt-3 text-gray-600 text-sm md:text-base">ابدأ بإضافة منتجاتك الآن وابدأ تجربة سريعة وسهلة</p>
-                    <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center">
-                        <a href="/collections" class="group inline-flex items-center gap-3 bg-white text-gray-800 rounded-full px-8 py-4 md:px-10 md:py-5 font-bold text-lg shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 ease-in-out border-2 border-gray-300 hover:border-gray-400 hover:bg-gray-50">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:scale-110 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
-                            تصفح المجموعات
-                        </a>
-                        <a href="/latest" class="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-gray-900 to-[#3e2723] hover:from-[#3e2723] hover:to-gray-900 text-white rounded-2xl px-10 py-4 md:px-14 md:py-5 font-bold text-lg md:text-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 font-['Cairo',sans-serif] border-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:rotate-12 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7" /></svg>
-                            متابعة التسوق
-                        </a>
-                    </div>
-                </div>
+    </div>
+
+    <!-- الحالة: السلة فاضية -->
+    <div x-show="!globals?.cart || !globals?.cart?.items || globals?.cart?.items?.length === 0"
+         class="max-w-2xl mx-auto text-center">
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+        <div class="mx-auto h-20 w-20 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 mb-6">
+          <svg class="h-10 w-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7h18M3 7l2 12a2 2 0 0 0 2 2h10a2 2 0 0 1 1.818 0Z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6M9 16h4"/>
+          </svg>
+        </div>
+        <h1 class="text-2xl font-bold text-gray-900 font-cairo mb-3">سلة المشتريات فارغة</h1>
+        <p class="text-gray-600 font-cairo mb-8">ابدأ بإضافة منتجاتك الآن واستمتع بتجربة تسوق مميزة</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/collections" class="inline-flex items-center justify-center gap-3 bg-white text-gray-800 rounded-xl px-8 py-4 font-bold text-lg shadow-sm hover:shadow-md border border-gray-200 hover:border-gray-300 hover:bg-gray-50 font-cairo transition-all duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+            تصفح المجموعات
+          </a>
+          <a href="/latest" class="inline-flex items-center justify-center gap-3 bg-[#003033] hover:bg-[#004d4d] text-white rounded-xl px-8 py-4 font-bold text-lg shadow-md hover:shadow-lg font-cairo transition-all duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+            متابعة التسوق
+          </a>
         </div>
       </div>
-  
     </div>
-  </main>
+  </div>
+</main>
   

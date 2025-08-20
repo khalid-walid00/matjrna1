@@ -11,10 +11,10 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Google Fonts - Zain -->
+    <!-- Google Fonts - Cairo Only -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -25,31 +25,19 @@
       tailwind.config = {
         theme: {
           extend: {
-            colors: {
-              primary: "#000",
-              secondary: "#1E1E1E",
-              neutral: {
-                100: "#EFEFEF",
-                200: "#E0E0E0",
-                300: "#868584",
-                400: "#0D0D0D"
-              }
-            },
             fontFamily: {
-              zain: ["Barlow", "sans-serif"],
-              cairo: ["Cairo", "sans-serif"]
+              'cairo': ['Cairo', 'sans-serif'],
             },
-            screens: {
-              xs: "475px",
-              sm: "640px",
-              md: "768px",
-              lg: "1024px",
-              xl: "1400px",
-              "2xl": "1536px"
+            colors: {
+              primary: {
+                DEFAULT: '#003033',
+                orange: '#FF6B35',
+                'orange-rgb': '255, 107, 53',
+              }
             }
           }
         }
-      };
+      }
     </script>
     <!-- Iconify for Flat Icons -->
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
