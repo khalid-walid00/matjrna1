@@ -236,3 +236,21 @@ body, html, * {
 .text-decoration-line-through {
     text-decoration: line-through;
 }
+
+@media (min-width: 1200px) {
+	/* Keep header columns stable and center track from shrinking issues */
+	header .container > .grid {
+		align-items: center;
+	}
+	header .container > .grid > div:first-child,
+	header .container > .grid > div:last-child {
+		flex-shrink: 0;
+	}
+	header .container > .grid > div:nth-child(2) {
+		min-width: 0;
+	}
+	header nav[ x-ref="track" ],
+	header [x-ref="track"] {
+		max-width: 100%;
+	}
+}

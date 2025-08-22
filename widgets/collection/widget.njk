@@ -6,6 +6,80 @@
       <p class=" text-lg ">{{ context.collection.description }}</p>
     </div>
       <div class=" flex  flex-col gap-4">
+        <div class="mb-8 p-4 bg-white rounded-lg shadow-sm" x-data="{ inStock:false, open:null }" @keydown.escape.window="open = null">
+          <div class="hidden md:flex items-center justify-between" @click.outside="open = null">
+            <div class="flex items-center gap-6">
+              <div class="flex items-center gap-2 cursor-pointer select-none" @click="inStock = !inStock">
+                <label class="font-semibold text-gray-700">في المخزون فقط</label>
+                <div class="rounded-full w-10 h-6 p-1 flex items-center transition-all duration-200" :class="inStock ? 'bg-blue-600 justify-start' : 'bg-gray-300 justify-end'">
+                  <div class="bg-white w-4 h-4 rounded-full shadow-md"></div>
+                </div>
+              </div>
+              <div class="relative">
+                <button class="flex items-center gap-1 text-gray-700 hover:text-black font-semibold" @click="open = open==='price' ? null : 'price'">سعر
+                  <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="open==='price'" x-transition class="absolute z-10 mt-2 w-56 bg-white rounded-md shadow-lg p-4 border">
+                  <input type="range" class="w-full">
+                  <div class="flex justify-between text-xs text-gray-600 mt-1"><span>0</span><span>400</span></div>
+                </div>
+              </div>
+              <div class="relative">
+                <button class="flex items-center gap-1 text-gray-700 hover:text-black font-semibold" @click="open = open==='brand' ? null : 'brand'">ماركة
+                  <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="open==='brand'" x-transition class="absolute z-10 mt-2 w-48 bg-white rounded-md shadow-lg p-2 border">
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">Matjrna</a>
+                </div>
+              </div>
+              <div class="relative">
+                <button class="flex items-center gap-1 text-gray-700 hover:text-black font-semibold" @click="open = open==='color' ? null : 'color'">لون
+                  <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="open==='color'" x-transition class="absolute z-10 mt-2 w-48 bg-white rounded-md shadow-lg p-2 border">
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">أحمر</a>
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">أخضر</a>
+                </div>
+              </div>
+              <div class="relative">
+                <button class="flex items-center gap-1 text-gray-700 hover:text-black font-semibold" @click="open = open==='type' ? null : 'type'">نوع المنتج
+                  <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="open==='type'" x-transition class="absolute z-10 mt-2 w-56 bg-white rounded-md shadow-lg p-2 border">
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">حافظات الايفون</a>
+                </div>
+              </div>
+            </div>
+            <div class="relative">
+              <button class="flex items-center gap-2" @click="open = open==='sort' ? null : 'sort'">
+                <span class="text-gray-600 font-semibold pointer-events-none">الترتيب حسب:</span>
+                <span class="text-gray-800 font-bold pointer-events-none">أبجديا، من الألف إلى الياء</span>
+                <svg class="w-4 h-4 text-gray-800 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </button>
+              <div x-show="open==='sort'" x-transition class="absolute z-10 left-0 mt-2 w-56 bg-white rounded-md shadow-lg p-2 border">
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">متميز</a>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">السعر: من الأعلى للأقل</a>
+              </div>
+            </div>
+          </div>
+          <div class="md:hidden">
+            <button class="w-full flex items-center justify-center gap-2 bg-gray-800 text-white py-3 px-4 rounded-lg font-bold" @click="open = open==='mobile' ? null : 'mobile'">الترشيح والترتيب</button>
+            <div x-show="open==='mobile'" x-transition class="mt-3 border rounded-lg p-3">
+              <div class="flex items-center justify-between py-2">
+                <span class="font-semibold text-gray-700">في المخزون فقط</span>
+                <div class="rounded-full w-10 h-6 p-1 flex items-center transition-all duration-200" :class="inStock ? 'bg-blue-600 justify-start' : 'bg-gray-300 justify-end'" @click="inStock = !inStock">
+                  <div class="bg-white w-4 h-4 rounded-full shadow-md"></div>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-2 mt-2">
+                <button class="border rounded-md py-2 text-sm">سعر</button>
+                <button class="border rounded-md py-2 text-sm">ماركة</button>
+                <button class="border rounded-md py-2 text-sm">لون</button>
+                <button class="border rounded-md py-2 text-sm">نوع المنتج</button>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 md:gap-6 gap-[10px] ">
           {% for product in context.products %}
           {%ui "product-card.njk" ,product=product %}
