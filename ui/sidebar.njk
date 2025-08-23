@@ -98,22 +98,107 @@
             </div>
           </div>
   
-          <!-- القائمة الأصلية (تظهر دايمًا) -->
+          <!-- القائمة الجديدة (نفس العناوين الموجودة في الهيدر) -->
           <nav class="flex-grow overflow-y-auto" x-show="!q">
             <ul class="flex flex-col gap-1 py-6">
-              {% for item in data.menu %}
-                <li>
-                  <a href="{{ item.url | default('#') }}"
-                     @click="toggleModal('sidebar', false)"
-                     class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-all duration-200 font-['Cairo',sans-serif] group">
-                    <div class="w-2 h-2 bg-gray-300 rounded-full group-hover:bg-gray-800 transition-colors duration-200"></div>
-                    <span class="font-medium">{{ item.title | default('لا يوجد عنوان') }}</span>
-                    <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors duration-200 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                  </a>
-                </li>
-              {% endfor %}
+              <!-- الصفحة الرئيسية -->
+              <li>
+                <a href="#" @click="toggleModal('sidebar', false)" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-all duration-200 font-['Cairo',sans-serif] group">
+                  <div class="w-2 h-2 bg-gray-300 rounded-full group-hover:bg-gray-800 transition-colors duration-200"></div>
+                  <span class="font-medium">الصفحة الرئيسية</span>
+                  <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors duration-200 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </li>
+              
+              <!-- التصنيفات -->
+              <li>
+                <a href="#" @click="toggleModal('sidebar', false)" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-all duration-200 font-['Cairo',sans-serif] group">
+                  <div class="w-2 h-2 bg-gray-300 rounded-full group-hover:bg-gray-800 transition-colors duration-200"></div>
+                  <span class="font-medium">التصنيفات</span>
+                  <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors duration-200 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </li>
+              
+              <!-- المنتجات -->
+              <li>
+                <a href="#" @click="toggleModal('sidebar', false)" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-all duration-200 font-['Cairo',sans-serif] group">
+                  <div class="w-2 h-2 bg-gray-300 rounded-full group-hover:bg-gray-800 transition-colors duration-200"></div>
+                  <span class="font-medium">المنتجات</span>
+                  <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors duration-200 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </li>
+              
+              <!-- المدونة -->
+              <li>
+                <a href="#" @click="toggleModal('sidebar', false)" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-all duration-200 font-['Cairo',sans-serif] group">
+                  <div class="w-2 h-2 bg-gray-300 rounded-full group-hover:bg-gray-800 transition-colors duration-200"></div>
+                  <span class="font-medium">المدونة</span>
+                  <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors duration-200 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </li>
+              
+              <!-- العروض والخصومات -->
+              <li>
+                <a href="#" @click="toggleModal('sidebar', false)" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-all duration-200 font-['Cairo',sans-serif] group">
+                  <div class="w-2 h-2 bg-gray-300 rounded-full group-hover:bg-gray-800 transition-colors duration-200"></div>
+                  <span class="font-medium">العروض والخصومات</span>
+                  <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors duration-200 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </li>
+              
+              <!-- خدمة العملاء -->
+              <li>
+                <a href="#" @click="toggleModal('sidebar', false)" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-all duration-200 font-['Cairo',sans-serif] group">
+                  <div class="w-2 h-2 bg-gray-300 rounded-full group-hover:bg-gray-800 transition-colors duration-200"></div>
+                  <span class="font-medium">خدمة العملاء</span>
+                  <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors duration-200 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </li>
+              
+              <!-- سياسة الخصوصية -->
+              <li>
+                <a href="#" @click="toggleModal('sidebar', false)" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-all duration-200 font-['Cairo',sans-serif] group">
+                  <div class="w-2 h-2 bg-gray-300 rounded-full group-hover:bg-gray-800 transition-colors duration-200"></div>
+                  <span class="font-medium">سياسة الخصوصية</span>
+                  <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors duration-200 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </li>
+              
+              <!-- الشروط والأحكام -->
+              <li>
+                <a href="#" @click="toggleModal('sidebar', false)" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-all duration-200 font-['Cairo',sans-serif] group">
+                  <div class="w-2 h-2 bg-gray-300 rounded-full group-hover:bg-gray-800 transition-colors duration-200"></div>
+                  <span class="font-medium">الشروط والأحكام</span>
+                  <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors duration-200 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </li>
+              
+              <!-- خريطة الموقع -->
+              <li>
+                <a href="#" @click="toggleModal('sidebar', false)" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-all duration-200 font-['Cairo',sans-serif] group">
+                  <div class="w-2 h-2 bg-gray-300 rounded-full group-hover:bg-gray-800 transition-colors duration-200"></div>
+                  <span class="font-medium">خريطة الموقع</span>
+                  <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors duration-200 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </li>
             </ul>
           </nav>
         </div>

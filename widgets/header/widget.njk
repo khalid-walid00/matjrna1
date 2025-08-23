@@ -15,7 +15,7 @@
         {% endfor %}
     </div>
 </div> #}
-<div class="bg-black text-white overflow-hidden announcement-bar py-3" x-data="{ scrolled: false }" @scroll.window="scrolled = window.pageYOffset > 40" :class="scrolled ? 'hidden' : ''">
+<div class="bg-black text-white overflow-hidden announcement-bar py-3">
     <div class="marquee-container">
       <div class="animate-marquee">
         <span class="mx-5 text-sm lg:text-base font-bold font-['Cairo',sans-serif] tracking-wide">✨ عروض مستمرة وهدايا مفاجئة كل يوم</span><span class="mx-2 text-blue-400">•</span>
@@ -65,58 +65,83 @@
                         class="h-12 md:h-16 w-auto">
                 </a>
                 <!-- Desktop: center menu items from header_menu -->
-                <div class="relative hidden lg:flex items-center justify-center w-full min-w-0"
-                     x-data="{
-                        open:false,
-                        init(){ this.$nextTick(() => { this.recalc(); window.addEventListener('resize', () => this.recalc()); }); },
-                        recalc(){
-                            const container = this.$refs.container; if(!container) return;
-                            const list = this.$refs.list; const more = this.$refs.more; const moreList = this.$refs.moreList; const moreWrap = this.$refs.moreWrap;
-                            const links = Array.from(list?.querySelectorAll('[data-index]') || []);
-                            const dropdownLinks = Array.from(moreList?.querySelectorAll('[data-index]') || []);
-                            let available = container.clientWidth - ((more?.offsetWidth || 32) + 8);
-                            let used = 0; let hidden = 0;
-                            links.forEach((el, i) => {
-                                const cs = getComputedStyle(el);
-                                const w = el.offsetWidth + parseFloat(cs.marginLeft) + parseFloat(cs.marginRight);
-                                if (used + w <= available) { el.style.display = 'inline-flex'; if (dropdownLinks[i]) dropdownLinks[i].style.display = 'none'; used += w; }
-                                else { el.style.display = 'none'; if (dropdownLinks[i]) dropdownLinks[i].style.display = 'block'; hidden++; }
-                            });
-                            if (moreWrap) moreWrap.classList.toggle('hidden', hidden === 0);
-                        }
-                     }" x-on:click.outside="open=false">
-                    <div class="overflow-hidden w-full min-w-0" x-ref="container">
-                        <div class="flex items-center justify-center gap-x-4 xl:gap-x-6 flex-nowrap" x-ref="list">
-                            {% if header.data.header_menu and (header.data.header_menu | length) > 0 %}
-                                {% for item in header.data.header_menu %}
-                                <a data-index="{{ loop.index0 }}" href="{{ item.url | default('#') }}" class="text-gray-700 hover:text-black font-semibold whitespace-nowrap">{{ item.title | default('صفحة') }}</a>
-                                {% endfor %}
-                            {% else %}
-                                <a data-index="0" href="/" class="text-gray-700 hover:text-black font-semibold whitespace-nowrap">الرئيسية</a>
-                                <a data-index="1" href="/collections" class="text-gray-700 hover:text-black font-semibold whitespace-nowrap">التصنيفات</a>
-                                <a data-index="2" href="/products-collection" class="text-gray-700 hover:text-black font-semibold whitespace-nowrap">المنتجات</a>
-                                <a data-index="3" href="/latest" class="text-gray-700 hover:text-black font-semibold whitespace-nowrap">الأحدث</a>
-                                <a data-index="4" href="/blog" class="text-gray-700 hover:text-black font-semibold whitespace-nowrap">المدونة</a>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="ml-2 relative" x-ref="moreWrap">
-                        <button @click="open=!open" x-ref="more" aria-label="المزيد" class="w-8 h-8 inline-flex items-center justify-center rounded-md hover:bg-gray-100 text-gray-700">⋯</button>
-                        <div x-show="open" x-transition class="absolute top-full mt-2 right-0 bg-white border border-gray-200 rounded-lg shadow-lg py-2 z-50 min-w-[12rem]">
-                            <div class="max-h-64 overflow-y-auto" x-ref="moreList">
-                                {% if header.data.header_menu and (header.data.header_menu | length) > 0 %}
-                                    {% for item in header.data.header_menu %}
-                                    <a data-index="{{ loop.index0 }}" href="{{ item.url | default('#') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 whitespace-nowrap">{{ item.title | default('صفحة') }}</a>
-                                    {% endfor %}
-                                {% else %}
-                                    <a data-index="0" href="/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 whitespace-nowrap">الرئيسية</a>
-                                    <a data-index="1" href="/collections" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 whitespace-nowrap">التصنيفات</a>
-                                    <a data-index="2" href="/products-collection" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 whitespace-nowrap">المنتجات</a>
-                                    <a data-index="3" href="/latest" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 whitespace-nowrap">الأحدث</a>
-                                    <a data-index="4" href="/blog" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 whitespace-nowrap">المدونة</a>
-                                {% endif %}
+                <div class="relative hidden lg:flex items-center justify-center w-full min-w-0">
+                    <div class="flex items-center justify-center gap-x-4 xl:gap-x-6">
+                                                 <!-- الصفحة الرئيسية -->
+                         <div class="relative group">
+                             <button class="text-gray-700 hover:text-black font-semibold whitespace-nowrap transition-colors duration-200 cursor-pointer flex items-center gap-1">
+                                 الصفحة الرئيسية
+                                 <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                 </svg>
+                             </button>
+                            <div class="absolute top-full mt-2 right-0 bg-white border border-gray-200 rounded-lg shadow-lg py-2 z-50 min-w-[12rem] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div class="px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 cursor-pointer">الرئيسية</div>
+                                <div class="px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 cursor-pointer">عن الموقع</div>
+                                <div class="px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 cursor-pointer">اتصل بنا</div>
                             </div>
                         </div>
+
+                                                 <!-- التصنيفات -->
+                         <div class="relative group">
+                             <button class="text-gray-700 hover:text-black font-semibold whitespace-nowrap transition-colors duration-200 cursor-pointer flex items-center gap-1">
+                                 التصنيفات
+                                 <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                 </svg>
+                             </button>
+                            <div class="absolute top-full mt-2 right-0 bg-white border border-gray-200 rounded-lg shadow-lg py-2 z-50 min-w-[12rem] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div class="px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 cursor-pointer">الإلكترونيات</div>
+                                <div class="px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 cursor-pointer">الملابس</div>
+                                <div class="px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 cursor-pointer">المنزل والحديقة</div>
+                                <div class="px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 cursor-pointer">الرياضة</div>
+                            </div>
+                        </div>
+
+                                                 <!-- المنتجات -->
+                         <div class="relative group">
+                             <button class="text-gray-700 hover:text-black font-semibold whitespace-nowrap transition-colors duration-200 cursor-pointer flex items-center gap-1">
+                                 المنتجات
+                                 <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                 </svg>
+                             </button>
+                            <div class="absolute top-full mt-2 right-0 bg-white border border-gray-200 rounded-lg shadow-lg py-2 z-50 min-w-[12rem] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div class="px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 cursor-pointer">المنتجات الجديدة</div>
+                                <div class="px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 cursor-pointer">الأكثر مبيعاً</div>
+                                <div class="px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 cursor-pointer">العروض الخاصة</div>
+                                <div class="px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 cursor-pointer">المنتجات المميزة</div>
+                            </div>
+                        </div>
+
+                                                                                                   <!-- المدونة -->
+                          <div class="relative group">
+                              <button class="text-gray-700 hover:text-black font-semibold whitespace-nowrap transition-colors duration-200 cursor-pointer flex items-center gap-1">
+                                  المدونة
+                                  <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                  </svg>
+                              </button>
+                             <div class="absolute top-full mt-2 right-0 bg-white border border-gray-200 rounded-lg shadow-lg py-2 z-50 min-w-[12rem] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                 <div class="px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 cursor-pointer">أحدث المقالات</div>
+                                 <div class="px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 cursor-pointer">نصائح التسوق</div>
+                                 <div class="px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 cursor-pointer">مراجعات المنتجات</div>
+                             </div>
+                         </div>
+
+                         <!-- زر المزيد مع 3 نقاط -->
+                         <div class="relative group">
+                             <button class="w-8 h-8 inline-flex items-center justify-center rounded-md hover:bg-gray-100 text-gray-700 transition-colors duration-200" aria-label="المزيد">
+                                 ⋯
+                             </button>
+                             <div class="absolute top-full mt-2 right-0 bg-white border border-gray-200 rounded-lg shadow-lg py-2 z-50 min-w-[12rem] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                 <div class="px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 cursor-pointer">العروض والخصومات</div>
+                                 <div class="px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 cursor-pointer">خدمة العملاء</div>
+                                 <div class="px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 cursor-pointer">سياسة الخصوصية</div>
+                                 <div class="px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 cursor-pointer">الشروط والأحكام</div>
+                                 <div class="px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 cursor-pointer">خريطة الموقع</div>
+                             </div>
+                         </div>
                     </div>
                 </div>
             </div>
