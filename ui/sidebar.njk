@@ -100,6 +100,7 @@
   
           <!-- القائمة الأصلية (تظهر دايمًا) -->
           <nav class="flex-grow overflow-y-auto" x-show="!q">
+            {% if  data.menu | length > 0 %}
             <ul class="flex flex-col gap-1 py-6">
               {% for item in data.menu %}
                 <li>
@@ -115,6 +116,16 @@
                 </li>
               {% endfor %}
             </ul>
+            {% else %}
+            <div class="mt-4 text-center py-6">
+              <div class="text-gray-400 mb-2">
+                <svg class="h-12 w-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+              </div>
+              <p class="text-sm text-gray-500 font-['Cairo',sans-serif]">لا توجد نتائج مطابقة</p>
+            </div>
+            {% endif %}
           </nav>
         </div>
       </div>

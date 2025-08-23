@@ -1,6 +1,7 @@
 {
   "name": "Products section",
   "description": "قسم المنتجات",
+  "for": ["products","index","latest"],
   "data": {
     "products": {
       "type": "products",

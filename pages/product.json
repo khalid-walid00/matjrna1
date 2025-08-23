@@ -3,8 +3,8 @@
   "title": "الصفحة الرئيسية",
   "widgets": [
     {
-      "name": "product-test",
-      "widget": "product-test",
+      "name": "product-details",
+      "widget": "product-details",
       "data": {}
     }
   ]
